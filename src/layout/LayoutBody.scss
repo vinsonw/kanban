@@ -1,3 +1,12 @@
 .layout-body {
-  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  .sidebar-wrapper {
+    width: var(--kb-sidebar-with);
+    flex-shrink: 0;
+    border-right: 1px solid var(--kb-layout-border-color);
+  }
+  .board-wrapper {
+    flex-grow: 1;
+  }
 }

@@ -11,6 +11,7 @@ const LayoutHeader = () => {
       </div>
       <div className="board-banner">
         <div className="board-name" title={"todo"}>
+          {/* TODO: dynamic */}
           board name text text
         </div>
         <div className="add-task-button">

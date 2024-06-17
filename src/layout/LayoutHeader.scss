@@ -2,9 +2,9 @@
 
 .layout-header {
   // debug
-  border: 1px solid lightblue;
+  border: 1px solid var(--kb-layout-border-color);
 
-  height: 100%;
+  height: 97px;
   display: flex;
   align-items: center;
   background-color: var(--kb-layout-bg);

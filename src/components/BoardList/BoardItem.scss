@@ -1,0 +1,31 @@
+@use "../../scss/" as *;
+
+.board-item {
+  display: flex;
+  transition: 0.3s background-color;
+  height: 48px;
+  width: 276px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: var(--kb-font-size-heading-m);
+  color: var(--kb-color-medium-gray);
+  font-weight: 800;
+  padding-left: 32px;
+  .board-item-icon {
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+  .board-name {
+    @extend %single-line-ellipsis;
+  }
+  &:hover {
+    background-color: var(--kb-color-light-gray);
+  }
+  &.selected {
+    color: var(--kb-color-white);
+    background-color: var(--kb-color-main-purple);
+  }
+}
