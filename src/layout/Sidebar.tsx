@@ -2,6 +2,7 @@ import BoardList from "../components/BoardList/BoardList";
 import RawData from "../assets/data.json";
 import SidebarToggle from "../components/SidebarToggle/SidebarToggle";
 import "./Sidebar.scss";
+import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 
 interface Props {
   onHideSideBar: () => void;
@@ -19,6 +20,9 @@ const SideBar = ({ onHideSideBar }: Props) => {
         />
       </div>
       {/* theme toggle */}
+      <div className="theme-toggle-wrapper">
+        <ThemeToggle />
+      </div>
       {/* sidebar toggle */}
       <div className="sidebar-toggle-wrapper">
         <SidebarToggle.HideSidebar onClick={onHideSideBar} />

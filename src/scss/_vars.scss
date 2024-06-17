@@ -43,4 +43,5 @@ html {
 html[data-theme="dark"] {
   --kb-text-color: var(--kb-color-white);
   --kb-layout-bg: var(--kb-color-dark-gray);
+  --kb-layout-border-color: var(--kb-color-lines-dark);
 }

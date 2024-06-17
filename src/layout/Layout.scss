@@ -3,4 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: var(--kb-color-lines-light);
+  @at-root [data-theme="dark"] & {
+    background-color: var(--kb-color-very-dark-gray);
+  }
 }

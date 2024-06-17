@@ -13,8 +13,15 @@ export const ThemeContext = React.createContext<ThemeContext>({
 
 const ThemeProvider = (props: { children: React.ReactNode }) => {
   const [theme, setTheme] = React.useState<Theme>("light");
+  const setThemeWithMarkingDocument = (theme: Theme) => {
+    // for css variable switch
+    document.documentElement.dataset.theme = theme;
+    setTheme(theme);
+  };
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, setTheme: setThemeWithMarkingDocument }}
+    >
       {props.children}
     </ThemeContext.Provider>
   );

@@ -3,7 +3,7 @@
   display: flex;
   .sidebar-wrapper {
     width: var(--kb-sidebar-with);
-    transition: width 0.1s;
+    transition: width var(--sidebar-transition-time);
     overflow: hidden;
     flex-shrink: 0;
     border-right: 1px solid var(--kb-layout-border-color);

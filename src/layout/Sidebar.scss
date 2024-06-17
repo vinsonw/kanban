@@ -1,10 +1,14 @@
 .sidebar {
-  background-color: #fff;
+  background-color: var(--kb-layout-bg);
   height: 100%;
   display: flex;
   flex-direction: column;
-  .sidebar-toggle-wrapper {
+  .theme-toggle-wrapper {
+    margin: 0 auto;
     margin-top: auto;
+  }
+  .sidebar-toggle-wrapper {
+    margin-top: 5px;
     margin-bottom: 35px;
   }
 }

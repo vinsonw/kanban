@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "./Sidebar";
 import "./LayoutBody.scss";
 import SidebarToggle from "../components/SidebarToggle/SidebarToggle";
 
+export const SIDEBAR_TRANSITION_TIME = 100;
+
 const LayoutBody = () => {
   const [sidebarExpanded, setSidebarExpanded] = React.useState(true);
+  const [displayShowSidebar, setDisplayShowSidebar] = React.useState(true);
+  useEffect(() => {
+    if (!sidebarExpanded) {
+      setTimeout(() => setDisplayShowSidebar(true), SIDEBAR_TRANSITION_TIME);
+      return;
+    }
+    setDisplayShowSidebar(false);
+  }, [sidebarExpanded]);
   return (
-    <div className="layout-body">
+    <div
+      className="layout-body"
+      style={
+        {
+          "--sidebar-transition-time": SIDEBAR_TRANSITION_TIME + "ms",
+        } as React.CSSProperties
+      }
+    >
       <div
         className="sidebar-wrapper"
         style={{ width: sidebarExpanded ? "" : "0px" }}
@@ -14,7 +31,7 @@ const LayoutBody = () => {
         <SideBar onHideSideBar={() => setSidebarExpanded(false)} />
       </div>
       {/* fixed position */}
-      {!sidebarExpanded && (
+      {displayShowSidebar && (
         <div className="show-sidebar-wrapper">
           <SidebarToggle.ShowSidebar onClick={() => setSidebarExpanded(true)} />
         </div>

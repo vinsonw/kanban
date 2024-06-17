@@ -26,6 +26,10 @@
       margin-left: 24px;
       max-width: 240px;
       @extend %single-line-ellipsis;
+
+      @at-root [data-theme="dark"] & {
+        color: var(--kb-color-white);
+      }
     }
     .add-task-button {
       margin-left: auto;
