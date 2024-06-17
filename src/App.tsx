@@ -1,9 +1,12 @@
-import { useState } from "react";
+import Layout from "./layout/Layout";
+import ThemeProvider from "./context/ThemeProvider";
 
 function App() {
   return (
     <>
-      <div>hello world</div>
+      <ThemeProvider>
+        <Layout />
+      </ThemeProvider>
     </>
   );
 }

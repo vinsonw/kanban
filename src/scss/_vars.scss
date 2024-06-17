@@ -1,0 +1,46 @@
+@use "sass:color";
+
+$main-purple: #635fc7;
+
+:root {
+  --kb-color-main-purple: #{$main-purple};
+  --kb-color-main-purple-alpha-10: #{color.adjust($main-purple, $alpha: -0.9)};
+  --kb-color-main-purple-hover: #a8a4ff;
+  --kb-color-black: #000112;
+  --kb-color-very-dark-gray: #20212c;
+
+  //
+  --kb-color-dark-gray: #2b2c37;
+  --kb-color-lines-dark: #3e3f4e;
+  --kb-color-medium-gray: #828fa3;
+  --kb-color-lines-light: #e4ebfa;
+
+  //
+  --kb-color-light-gray: #f4f7fd;
+  --kb-color-white: #ffffff;
+  --kb-color-red: #ea5555;
+  --kb-color-red-hover: #ff9898;
+
+  //
+  --kb-color-disabled: #d8d7f1;
+
+  //
+  --kb-sidebar-with: 300px;
+
+  //
+  --kb-font-size-heading-xl: 24px;
+  --kb-font-size-heading-l: 18px;
+  --kb-font-size-heading-m: 15px;
+  --kb-font-size-heading-s: 12px;
+}
+
+html {
+  --kb-text-color: var(--kb-color-black);
+  --kb-layout-bg: var(--kb-color-white);
+  --kb-layout-border-color: var(--kb-color-lines-light);
+}
+
+html[data-theme="dark"] {
+  --kb-text-color: var(--kb-color-white);
+  --kb-layout-bg: var(--kb-color-dark-gray);
+}

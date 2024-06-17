@@ -1,0 +1,38 @@
+@use "../scss/index" as *;
+
+.layout-header {
+  // debug
+  border: 1px solid lightblue;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--kb-layout-bg);
+
+  .logo-wrapper {
+    width: var(--kb-sidebar-with);
+    border-right: 1px solid var(--kb-layout-border-color);
+    height: 100%;
+    padding-top: 33px;
+    padding-left: 34px;
+  }
+
+  .board-banner {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    .board-name {
+      font-size: var(--kb-font-size-heading-xl);
+      font-weight: 800;
+      margin-left: 24px;
+      max-width: 240px;
+      @extend %single-line-ellipsis;
+    }
+    .add-task-button {
+      margin-left: auto;
+    }
+    .ellipsis-button {
+      justify-self: end;
+    }
+  }
+}
