@@ -1,3 +1,4 @@
+@use "../../scss/" as *;
 .all-board-number {
   padding-left: 32px;
   padding-bottom: 20px;
@@ -5,4 +6,5 @@
   font-size: 12px;
   font-weight: 800;
   color: var(--kb-color-medium-gray);
+  @extend %single-line-ellipsis;
 }

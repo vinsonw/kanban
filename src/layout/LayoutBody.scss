@@ -3,8 +3,15 @@
   display: flex;
   .sidebar-wrapper {
     width: var(--kb-sidebar-with);
+    transition: width 0.1s;
+    overflow: hidden;
     flex-shrink: 0;
     border-right: 1px solid var(--kb-layout-border-color);
+  }
+  .show-sidebar-wrapper {
+    position: fixed;
+    bottom: 40px;
+    left: 0px;
   }
   .board-wrapper {
     flex-grow: 1;

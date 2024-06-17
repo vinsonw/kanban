@@ -1,4 +1,10 @@
 .sidebar {
   background-color: #fff;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  .sidebar-toggle-wrapper {
+    margin-top: auto;
+    margin-bottom: 35px;
+  }
 }
