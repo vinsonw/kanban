@@ -1,0 +1,19 @@
+.empty-board-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  .empty-board-content {
+    height: 103px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .empty-text {
+      color: var(--kb-color-medium-gray);
+      font-size: var(--kb-font-size-heading-l);
+    }
+  }
+}

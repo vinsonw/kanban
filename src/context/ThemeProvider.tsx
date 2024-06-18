@@ -1,4 +1,5 @@
 import * as React from "react";
+import { KB_THEME_KEY } from "../constants";
 
 type Theme = "light" | "dark";
 type ThemeContext = {
@@ -12,10 +13,14 @@ export const ThemeContext = React.createContext<ThemeContext>({
 });
 
 const ThemeProvider = (props: { children: React.ReactNode }) => {
-  const [theme, setTheme] = React.useState<Theme>("light");
+  const defaultTheme = (localStorage.getItem(KB_THEME_KEY) || "light") as Theme;
+  const [theme, setTheme] = React.useState<Theme>(defaultTheme);
+  document.documentElement.dataset.theme = theme;
+
   const setThemeWithMarkingDocument = (theme: Theme) => {
     // for css variable switch
     document.documentElement.dataset.theme = theme;
+    localStorage.setItem(KB_THEME_KEY, theme);
     setTheme(theme);
   };
   return (

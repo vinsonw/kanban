@@ -10,7 +10,6 @@ const PrimitiveToggle = (props: {
 }) => {
   const [on, setOn] = React.useState(false);
   const isOn = props.on ?? on;
-  console.log("isOn", isOn);
   const handleToggle = () => {
     const stateToSet = !isOn;
     if (props.onToggle) {
@@ -33,11 +32,11 @@ const PrimitiveToggle = (props: {
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useContext(ThemeContext);
-  console.log("theme", theme);
   return (
     <div className="theme-toggle">
       <svg
         onClick={() => setTheme("light")}
+        className={theme === "light" ? "selected" : ""}
         id="sun"
         width="19"
         height="19"
@@ -56,6 +55,7 @@ const ThemeToggle = () => {
       />
       <svg
         onClick={() => setTheme("dark")}
+        className={theme === "dark" ? "selected" : ""}
         width="16"
         height="16"
         xmlns="http://www.w3.org/2000/svg"

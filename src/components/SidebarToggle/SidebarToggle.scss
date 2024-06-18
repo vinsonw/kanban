@@ -6,7 +6,7 @@
   gap: 16px;
   padding-left: 31px;
   cursor: pointer;
-  transform: 0.2s color;
+  transition: 0.2s color;
   white-space: nowrap;
   &:hover {
     color: var(--kb-color-main-purple);

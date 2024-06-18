@@ -1,8 +1,7 @@
-import * as React from "react";
+import { useSearchParams } from "react-router-dom";
 import BoardItem, { type BoardItemProps } from "./BoardItem";
 import "./BoardList.scss";
 import CreateBoardItemButton from "./CreateNewBoardButton";
-import { useSearchParams } from "react-router-dom";
 
 interface BorderListProps {
   borderList?: Pick<BoardItemProps, "boardName" | "id">[];

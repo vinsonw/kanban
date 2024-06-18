@@ -1,8 +1,8 @@
 import BoardList from "../components/BoardList/BoardList";
-import RawData from "../assets/data.json";
 import SidebarToggle from "../components/SidebarToggle/SidebarToggle";
 import "./Sidebar.scss";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
+import { getBoardList } from "../utils/db";
 
 interface Props {
   onHideSideBar: () => void;
@@ -13,8 +13,8 @@ const SideBar = ({ onHideSideBar }: Props) => {
     <div className="sidebar">
       <div className="board-list-wrapper">
         <BoardList
-          borderList={RawData.boards.map((board) => ({
-            id: board.name,
+          borderList={getBoardList().map((board) => ({
+            id: board.id,
             boardName: board.name,
           }))}
         />

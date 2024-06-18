@@ -40,5 +40,8 @@
     &:hover {
       color: var(--kb-color-main-purple);
     }
+    &.selected {
+      color: var(--kb-color-main-purple);
+    }
   }
 }

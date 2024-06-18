@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import SideBar from "./Sidebar";
 import "./LayoutBody.scss";
 import SidebarToggle from "../components/SidebarToggle/SidebarToggle";
+import { BoardContent } from "../components/BoardContent";
 
 export const SIDEBAR_TRANSITION_TIME = 100;
 
@@ -37,7 +38,9 @@ const LayoutBody = () => {
         </div>
       )}
 
-      <div className="board-wrapper"></div>
+      <div className="board-wrapper">
+        <BoardContent />
+      </div>
     </div>
   );
 };
