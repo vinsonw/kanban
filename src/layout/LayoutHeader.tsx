@@ -2,11 +2,11 @@ import "./LayoutHeader.scss";
 import Logo from "../components/Logo";
 import Button from "../components/Button/Button";
 import Ellipsis from "../components/Ellipsis/Ellipsis";
-import { useDisplayedBoard } from "../hooks";
+import { useDisplayedBoardInfo } from "../hooks";
 
 const LayoutHeader = () => {
   let boardName: string;
-  const displayedBoard = useDisplayedBoard();
+  const displayedBoard = useDisplayedBoardInfo();
 
   if (displayedBoard) {
     boardName = displayedBoard.name;

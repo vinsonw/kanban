@@ -1,10 +1,12 @@
 @use "sass:color";
-
-$main-purple: #635fc7;
+@use "./vars.module.scss" as vars;
 
 :root {
-  --kb-color-main-purple: #{$main-purple};
-  --kb-color-main-purple-alpha-10: #{color.adjust($main-purple, $alpha: -0.9)};
+  --kb-color-main-purple: #{vars.$main-purple};
+  --kb-color-main-purple-alpha-10: #{color.adjust(
+      vars.$main-purple,
+      $alpha: -0.9
+    )};
   --kb-color-main-purple-hover: #a8a4ff;
   --kb-color-black: #000112;
   --kb-color-very-dark-gray: #20212c;
@@ -32,6 +34,8 @@ $main-purple: #635fc7;
   --kb-font-size-heading-l: 18px;
   --kb-font-size-heading-m: 15px;
   --kb-font-size-heading-s: 12px;
+  --kb-font-size-body-l: 13px;
+  --kb-font-size-body-m: 12px;
 }
 
 html {

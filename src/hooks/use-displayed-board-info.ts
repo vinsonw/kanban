@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
-import { getBoardById } from "../utils/db";
+import { getBoardInfoById } from "../apis";
 
-export const useDisplayedBoard = () => {
+export const useDisplayedBoardInfo = () => {
   const [searchParams] = useSearchParams();
   const displayedBoardId = searchParams.get("boardId") || "";
-  return getBoardById(displayedBoardId);
+  return getBoardInfoById(displayedBoardId);
 };

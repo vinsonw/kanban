@@ -6,6 +6,7 @@
       "columns": [
         {
           "name": "Todo",
+          "iconColor": "#49C4E5",
           "tasks": [
             {
               "title": "Build UI for onboarding flow",
@@ -71,6 +72,7 @@
         },
         {
           "name": "Doing",
+          "iconColor": "#8471F2",
           "tasks": [
             {
               "title": "Design settings and search pages",
@@ -182,6 +184,7 @@
         },
         {
           "name": "Done",
+          "iconColor": "#67E2AE",
           "tasks": [
             {
               "title": "Conduct 5 wireframe tests",
