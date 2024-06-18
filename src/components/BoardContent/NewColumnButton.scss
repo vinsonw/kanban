@@ -1,0 +1,11 @@
+.new-column-button-wrapper {
+  width: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background-color: #e9effa;
+  font-size: var(--kb-font-size-heading-xl);
+  color: var(--kb-color-medium-gray);
+  cursor: pointer;
+}

@@ -23,8 +23,8 @@ export const Column = z.object({
 export type Column = z.infer<typeof Column>;
 
 export const Board = z.object({
-  name: z.string(),
-  id: z.string(),
-  columns: z.array(Column),
+  name: z.string().default(""),
+  id: z.string().default(""),
+  columns: z.array(Column).default([]),
 });
 export type Board = z.infer<typeof Board>;
