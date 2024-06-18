@@ -1,12 +1,15 @@
 import Layout from "./layout/Layout";
 import ThemeProvider from "./context/ThemeProvider";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <ThemeProvider>
-        <Layout />
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider>
+          <Layout />
+        </ThemeProvider>
+      </BrowserRouter>
     </>
   );
 }
