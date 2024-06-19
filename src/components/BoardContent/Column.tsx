@@ -1,4 +1,4 @@
-import Task from "../Task/Task";
+import TaskCard from "../Task/TaskCard";
 import { Column as ColumnType } from "../../schemas";
 import "./Column.scss";
 
@@ -14,7 +14,7 @@ const Column = ({ tasks, name, iconColor }: ColumnType) => {
       </div>
       <div className="task-list-wrapper">
         {tasks.map((task) => (
-          <Task key={task.title} {...task} />
+          <TaskCard key={task.title} {...task} />
         ))}
       </div>
     </div>

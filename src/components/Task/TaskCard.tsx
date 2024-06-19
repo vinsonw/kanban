@@ -1,25 +1,15 @@
 import { Task as TaskType } from "../../schemas";
-import "./Task.scss";
+import "./TaskCard.scss";
 import Dialog from "../Dialog/Dialog";
+import TaskDetail from "./TaskDetail";
 
-const Test = () => (
-  <div
-    style={{
-      width: 200,
-      height: 200,
-      background: "#fff",
-    }}
-  >
-    hello
-  </div>
-);
-
-const Task = ({ title, description, status, subtasks }: TaskType) => {
+const TaskCard = (props: TaskType) => {
+  const { title, description, status, subtasks } = props;
   const doneSubtaskNumber = subtasks.filter(
     (subtask) => subtask.isCompleted,
   ).length;
   return (
-    <Dialog dialogContent={<Test />}>
+    <Dialog dialogContent={<TaskDetail {...props} />}>
       <div className="task-wrapper">
         <div className="title">{title}</div>
         <div className="subtask-progress">{`${doneSubtaskNumber} of ${subtasks.length} subtasks`}</div>
@@ -28,4 +18,4 @@ const Task = ({ title, description, status, subtasks }: TaskType) => {
   );
 };
 
-export default Task;
+export default TaskCard;

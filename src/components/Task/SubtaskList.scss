@@ -1,0 +1,62 @@
+.subtask-list-wrapper {
+  margin-top: 24px;
+  .list-title {
+    color: var(--kb-color-medium-gray);
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+}
+.subtask-item-wrapper {
+  min-height: 40px;
+  color: var(--kb-color-black);
+  background-color: var(--kb-color-light-gray);
+  padding: 12px;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: left;
+  user-select: none;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  cursor: pointer;
+  .indicator {
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 2px;
+    &[data-state="checked"] {
+      background: var(--kb-color-main-purple);
+      + .label {
+        opacity: 0.5;
+        color: var(--kb-color-black);
+        font-family: Plus Jakarta Sans;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: normal;
+        letter-spacing: 0px;
+        text-align: left;
+        text-decoration: line-through;
+      }
+    }
+    &[data-state="unchecked"] {
+      background: var(--kb-color-white);
+      border: 1px solid #828fa33f;
+    }
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .label {
+    cursor: pointer;
+  }
+}
+
+.current-status-wrapper {
+  .title {
+    color: #828fa3;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}

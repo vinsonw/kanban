@@ -12,7 +12,7 @@ const getSafeRes = <T extends Schema>(
 };
 
 /*  */
-export const getBoardInfoById = (id: string) => {
+export const getBoardContentById = (id: string) => {
   const rawRes = getBoardById(id) || {};
   return getSafeRes(rawRes, Board);
 };

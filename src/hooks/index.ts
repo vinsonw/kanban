@@ -1,1 +1,1 @@
-export * from "./use-displayed-board-info";
+export * from "./use-displayed-board-content";

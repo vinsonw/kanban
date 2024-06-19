@@ -1,17 +1,17 @@
 import { z } from "zod";
 import cssVars from "../scss/vars.module.scss";
 
-export const SubTask = z.object({
+export const Subtask = z.object({
   title: z.string(),
   isCompleted: z.boolean(),
 });
-export type SubTask = z.infer<typeof SubTask>;
+export type Subtask = z.infer<typeof Subtask>;
 
 export const Task = z.object({
   title: z.string(),
   description: z.string(),
   status: z.string(),
-  subtasks: z.array(SubTask),
+  subtasks: z.array(Subtask),
 });
 export type Task = z.infer<typeof Task>;
 
