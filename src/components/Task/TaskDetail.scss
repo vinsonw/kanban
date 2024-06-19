@@ -4,10 +4,25 @@
   background-color: var(--kb-color-white);
   border-radius: 6px;
   padding: 32px;
-  .title {
-    color: var(--kb-color-black);
-    font-weight: bold;
-    font-size: 18px;
+  .title-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    --ellipsis-button-width: 10px;
+    .title {
+      color: var(--kb-color-black);
+      font-weight: bold;
+      font-size: 18px;
+      width: calc(100% - var(--ellipsis-button-width));
+    }
+    .ellipsis-button {
+      width: var(--ellipsis-button-width);
+      cursor: pointer;
+      background-color: var(--kb-color-white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     margin-bottom: 20px;
   }
   .description {
@@ -19,6 +34,18 @@
   .subtask-list-wrapper {
     > * + * {
       margin-top: 8px;
+    }
+  }
+  .status-dropdown {
+    margin-top: 24px;
+    .status-title {
+      color: #828fa3;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: normal;
+      letter-spacing: 0px;
+      text-align: left;
+      margin-bottom: 8px;
     }
   }
 }

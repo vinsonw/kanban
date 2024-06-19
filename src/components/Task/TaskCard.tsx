@@ -1,10 +1,10 @@
-import { Task as TaskType } from "../../schemas";
+import { Task } from "../../schemas";
 import "./TaskCard.scss";
 import Dialog from "../Dialog/Dialog";
 import TaskDetail from "./TaskDetail";
 
-const TaskCard = (props: TaskType) => {
-  const { title, description, status, subtasks } = props;
+const TaskCard = (props: Task) => {
+  const { title, subtasks } = props;
   const doneSubtaskNumber = subtasks.filter(
     (subtask) => subtask.isCompleted,
   ).length;

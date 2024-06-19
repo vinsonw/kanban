@@ -1,5 +1,4 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
-import Select from "../Select/Select";
 import { Subtask } from "../../schemas";
 import "./SubtaskList.scss";
 
@@ -9,7 +8,7 @@ interface Props {
 
 const SubtaskList = ({ subtaskList }: Props) => {
   const handleCheckChange = (subtaskId: string) => {
-    console.log("sub, checkd", subtaskId);
+    console.log("sub, checked", subtaskId);
   };
   return (
     <div className="subtask-list-wrapper">
