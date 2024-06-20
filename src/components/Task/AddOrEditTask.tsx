@@ -1,10 +1,13 @@
 import "./AddOrEditTask.scss";
-import { Subtask, Task } from "../../schemas";
-import SimpleInput from "./SimpleInput";
+import { Task } from "../../schemas";
+import clsx from "clsx";
 import React from "react";
 import Button from "../Button/Button";
 import { getRandomId } from "../../utils";
 import Select from "../Select/Select";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 type Props =
   | {
@@ -16,23 +19,15 @@ type Props =
       task?: Task;
     };
 
-const taskChangeReducer = (task: Task, action: TaskAction): Task => {
-  switch (action.type) {
-    case "title":
-      return { ...task, title: action.payload };
-    case "description":
-      return { ...task, description: action.payload };
-    case "subtasks":
-      return { ...task, subtasks: action.payload };
-    case "status":
-      return { ...task, status: action.payload };
-  }
-};
-type TaskAction =
-  | { type: "title"; payload: string }
-  | { type: "description"; payload: string }
-  | { type: "subtasks"; payload: Subtask[] }
-  | { type: "status"; payload: string };
+type TaskStatus = "Todo" | "Doing" | "Done";
+
+const FormValidateSchema = z.object({
+  title: z.string().min(1),
+  description: z.string(),
+  subtasks: z.array(
+    z.object({ id: z.string().min(1), title: z.string().min(1) }),
+  ),
+});
 
 const AddOrEditTask = ({
   type = "add",
@@ -44,98 +39,139 @@ const AddOrEditTask = ({
     id: getRandomId(),
   },
 }: Props) => {
-  const [{ title, description, status, subtasks }, dispatch] = React.useReducer(
-    taskChangeReducer,
-    task,
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: task.title,
+      description: task.description,
+      subtasks: task.subtasks.map(({ id, title }) => ({ id, title })),
+    },
+    mode: "all",
+    resolver: zodResolver(FormValidateSchema),
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    name: "subtasks",
+    control,
+    keyName: "subtasks",
+  });
+
+  const onSubmit: SubmitHandler<z.infer<typeof FormValidateSchema>> = (
+    data,
+  ) => {
+    const formDataToSave = { ...data, status: taskStatus };
+    console.log("formDataToSave", formDataToSave);
+  };
+
+  const [taskStatus, setTaskStatus] = React.useState<TaskStatus>(
+    task.status as TaskStatus,
   );
+
   return (
     <div className="add-or-edit-task">
       <div className="what-to-do-with-the-task">
         {type === "add" ? "Add New Task" : "Edit Task"}
       </div>
-      <div className="title">
-        <div className="section-title">Title</div>
-        <SimpleInput
-          enableNonEmptyCheck
-          value={title}
-          onChange={(e) => {
-            dispatch({ type: "title", payload: e.target.value });
-          }}
-        />
-      </div>
-      <div className="description">
-        <div className="section-title">Description</div>
-        <SimpleInput
-          type="textarea"
-          value={description}
-          height={112}
-          onChange={(e) => {
-            dispatch({ type: "description", payload: e.target.value });
-          }}
-        />
-      </div>
-      <div className="subtasks">
-        <div className="section-title">Subtasks</div>
-        {subtasks.map(({ title, id }) => (
-          <div className="subtask-item" key={id}>
-            <SimpleInput
-              enableNonEmptyCheck
-              value={title}
-              onChange={(e) => {
-                const newSubtasks = [...subtasks];
-                const foundSubtask = newSubtasks.find(
-                  (subtask) => subtask.id === id,
-                )!;
-                foundSubtask.title = e.target.value;
-                dispatch({ type: "subtasks", payload: newSubtasks });
-              }}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* title */}
+        <div className="title">
+          <div className="section-title">Title</div>
+          <div
+            className={clsx("input-for-task-field-wrapper", {
+              error: errors.title,
+            })}
+          >
+            <input
+              {...register("title")}
+              className={clsx("input-for-task-field", { error: errors.title })}
+              style={{ height: 40 }}
             />
-            <svg
-              onClick={() => {
-                const newSubtasks = subtasks.filter(
-                  (subtask) => subtask.id !== id,
-                )!;
-                dispatch({ type: "subtasks", payload: newSubtasks });
-              }}
-              className="close-button"
-              width="15"
-              height="15"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g fill="currentColor" fillRule="evenodd">
-                <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
-                <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
-              </g>
-            </svg>
+            {errors.title && <div className="empty-label">Can't be empty</div>}
           </div>
-        ))}
-        <div
-          className="add-new-subtask"
-          onClick={() => {
-            const newSubtasks: Subtask[] = [
-              ...subtasks,
-              { isCompleted: false, title: "", id: getRandomId() },
-            ];
-            dispatch({ type: "subtasks", payload: newSubtasks });
-          }}
-        >
-          <Button type="secondary" label="+Add New Subtask" />
         </div>
-      </div>
-      <div className="status-dropdown">
-        <p className="status-title section-title">Status</p>
-        <Select
-          activeOption={{ id: status, label: status }}
-          optionList={[
-            { id: "Todo", label: "Todo" },
-            { id: "Doing", label: "Doing" },
-            { id: "Done", label: "Done" },
-          ]}
-        />
-        <div className="save-button-wrapper">
-          <Button label="Save Change" size="small" />
+        {/* description */}
+        <div className="description">
+          <div className="section-title">Description</div>
+
+          <textarea
+            {...register("description")}
+            className="textarea-for-task-field"
+            rows={3}
+            placeholder="e.g. It’s always good to take a break. This 15 minute break will 
+recharge the batteries a little."
+          />
         </div>
-      </div>
+        {/* subtasks */}
+        <div className="subtasks">
+          <div className="section-title">Subtasks</div>
+          {fields.map(({ id }, index) => (
+            <div className="subtask-item" key={id}>
+              <div
+                className={clsx("input-for-task-field-wrapper", {
+                  error: errors.subtasks?.[index]?.title,
+                })}
+              >
+                <input
+                  {...register(`subtasks.${index}.title`)}
+                  className={clsx("input-for-task-field", {
+                    error: errors.subtasks?.[index]?.title,
+                  })}
+                  style={{ height: 40 }}
+                />
+                {errors.subtasks?.[index]?.title && (
+                  <div className="empty-label">Can't be empty</div>
+                )}
+              </div>
+              {/* x button */}
+              <svg
+                onClick={() => {
+                  remove(index);
+                }}
+                className="close-button"
+                width="15"
+                height="15"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g fill="currentColor" fillRule="evenodd">
+                  <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+                  <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+                </g>
+              </svg>
+            </div>
+          ))}
+          <div
+            className="add-new-subtask"
+            onClick={() => {
+              append({ id: getRandomId(), title: "" });
+            }}
+          >
+            <Button type="secondary" label="+Add New Subtask" />
+          </div>
+        </div>
+        {/* status */}
+        <div className="status-dropdown">
+          <p className="status-title section-title">Status</p>
+          <Select
+            activeOption={{ id: taskStatus, label: taskStatus }}
+            onSelect={(status) => {
+              setTaskStatus(status as TaskStatus);
+            }}
+            optionList={[
+              { id: "Todo", label: "Todo" },
+              { id: "Doing", label: "Doing" },
+              { id: "Done", label: "Done" },
+            ]}
+          />
+          {/* save */}
+          <div className="save-button-wrapper">
+            <Button nativeType="submit" label="Save Change" size="small" />
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

@@ -10,18 +10,17 @@ type Option = {
 interface Props {
   optionList: Option[];
   activeOption?: Option;
+  onSelect: (id: string) => void;
 }
 
 const Select = (props: Props) => {
-  const { optionList, activeOption } = props;
-  const handleSelectValueChange = (value: string) => {
-    console.log("value to set", value);
-  };
+  const { optionList, activeOption, onSelect } = props;
+
   const [open, setOpen] = useState(false);
   return (
     <RadixSelect.Root
       value={activeOption?.id}
-      onValueChange={handleSelectValueChange}
+      onValueChange={onSelect}
       open={open}
       onOpenChange={(open) => setOpen(open)}
     >
