@@ -1,5 +1,6 @@
 .button {
   --height: 48px;
+  width: 100%;
   border-radius: calc(var(--height) / 2);
   background-color: var(--kb-color-main-purple);
   color: var(--kb-color-white);
@@ -20,7 +21,7 @@
   }
 
   &.small {
-    height: var(--height);
+    --height: 40px;
     font-size: 13px;
   }
   &.disabled {
@@ -34,6 +35,11 @@
   &.secondary {
     background-color: var(--kb-color-main-purple-alpha-10);
     color: var(--kb-color-main-purple);
+    --height: 40px;
+    transition: 0.2s color;
+    &:hover {
+      color: var(--kb-color-white);
+    }
   }
   &.danger {
     background-color: var(--kb-color-red);

@@ -4,11 +4,13 @@ import "./Dialog.scss";
 interface Props {
   children: React.ReactNode;
   dialogContent: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (openToSet: boolean) => void;
 }
 
-const Dialog = ({ children, dialogContent }: Props) => {
+const Dialog = ({ children, dialogContent, onOpenChange, open }: Props) => {
   return (
-    <RadixDialog.Root>
+    <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
       <RadixDialog.Trigger asChild>{children}</RadixDialog.Trigger>
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="dialog-overlay" />

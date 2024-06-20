@@ -3,24 +3,49 @@ import { Task } from "../../schemas";
 import SubtaskList from "./SubtaskList";
 import Select from "../Select/Select";
 import Dropdown, { type Option } from "../Dropdown/Dropdown";
+import React from "react";
 
-const ELLIPSIS_OPTIONS: Option[] = [
-  { id: "1", label: "Edit task" },
-  { id: "2", label: "Delete Task", type: "warn" },
+const ELLIPSIS_OPTIONS: Option<TaskOperation>[] = [
+  {
+    id: "edit",
+    label: "Edit task",
+    dialogContentComponent: () => <div>edit</div>,
+  },
+  {
+    id: "delete",
+    label: "Delete Task",
+    type: "warn",
+    dialogContentComponent: () => <div>delete</div>,
+  },
 ];
 
-const TaskDetail = ({ title, description, subtasks }: Task) => {
-  const handleSelect = (id: string) => {
-    console.log(
-      "selected",
-      ELLIPSIS_OPTIONS.find((option) => option.id === id),
-    );
+export type TaskOperation = "edit" | "delete" | "view";
+
+const TaskDetail = ({
+  title,
+  description,
+  subtasks,
+  onTaskOperation,
+}: Task & {
+  onTaskOperation: (operation: TaskOperation) => void;
+}) => {
+  const [openDropdown, setOpenDropdown] = React.useState(false);
+
+  const handleSelectOperation = (operation: string) => {
+    console.log("operation", operation);
+    onTaskOperation(operation as TaskOperation);
   };
+
   return (
     <div className="task-detail-wrapper">
       <div className="title-wrapper">
         <div className="title">{title}</div>
-        <Dropdown optionList={ELLIPSIS_OPTIONS} onSelect={handleSelect}>
+        <Dropdown
+          open={openDropdown}
+          onOpenChange={setOpenDropdown}
+          optionList={ELLIPSIS_OPTIONS}
+          onSelect={handleSelectOperation}
+        >
           <button className="ellipsis-button">
             <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg">
               <g fill="#828FA3" fillRule="evenodd">
