@@ -3,17 +3,17 @@ import "./Select.scss";
 import * as RadixSelect from "@radix-ui/react-select";
 import clsx from "clsx";
 
-type Option = {
+type Option<T> = {
   label: string;
-  id: string;
+  id: T;
 };
-interface Props {
-  optionList: Option[];
-  activeOption?: Option;
-  onSelect: (id: string) => void;
+interface Props<T> {
+  optionList: Option<T>[];
+  activeOption?: Option<T>;
+  onSelect: (id: T) => void;
 }
 
-const Select = (props: Props) => {
+const Select = <T extends string>(props: Props<T>) => {
   const { optionList, activeOption, onSelect } = props;
 
   const [open, setOpen] = useState(false);

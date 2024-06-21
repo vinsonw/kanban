@@ -2,26 +2,26 @@ import clsx from "clsx";
 import "./Dropdown.scss";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
-export type Option<T extends string = string> = {
+export type Option<T> = {
   id: T;
   label: string;
   type?: "normal" | "warn";
 };
-interface Props {
+interface Props<T> {
   children: React.ReactNode;
-  optionList: Option[];
-  onSelect?: (id: string) => void;
+  optionList: Option<T>[];
+  onSelect?: (id: T) => void;
   open: boolean;
   onOpenChange: (openToSet: boolean) => void;
 }
 
-const Dropdown = ({
+const Dropdown = <T extends string>({
   children,
   optionList,
   open,
   onOpenChange,
   onSelect = () => {},
-}: Props) => {
+}: Props<T>) => {
   return (
     <DropdownMenu.Root open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger asChild>{children}</DropdownMenu.Trigger>

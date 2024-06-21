@@ -40,9 +40,9 @@ const TaskDetail = ({
 }) => {
   const [openDropdown, setOpenDropdown] = React.useState(false);
 
-  const handleSelectOperation = (operation: string) => {
+  const handleSelectOperation = (operation: TaskOperation) => {
     console.log("operation", operation);
-    onTaskOperation(operation as TaskOperation);
+    onTaskOperation(operation);
   };
 
   const [localState, dispatch] = React.useReducer(
@@ -80,7 +80,7 @@ const TaskDetail = ({
     <div className="task-detail-wrapper">
       <div className="title-wrapper">
         <div className="title">{title}</div>
-        <Dropdown
+        <Dropdown<TaskOperation>
           open={openDropdown}
           onOpenChange={setOpenDropdown}
           optionList={ELLIPSIS_OPTIONS}

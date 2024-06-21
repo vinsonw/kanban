@@ -81,10 +81,10 @@ const LayoutHeader = () => {
           dialogContent={dialogContentForOperationOnBoard}
         >
           <div className="ellipsis-button">
-            <Dropdown
+            <Dropdown<CurrentBoardEditStatus>
               open={dropDownOpen}
               onSelect={(id) => {
-                setCurrentBoardEditStatus(id as CurrentBoardEditStatus);
+                setCurrentBoardEditStatus(id);
               }}
               onOpenChange={setDropDownOpen}
               optionList={[
