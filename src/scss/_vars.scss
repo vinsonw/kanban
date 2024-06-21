@@ -3,7 +3,6 @@
 
 :root {
   --kb-color-main-purple: #{vars.$main-purple};
-  // for rgba to work at runtime
   --kb-color-main-purple-alpha-10: #{color.adjust(
       vars.$main-purple,
       $alpha: -0.9

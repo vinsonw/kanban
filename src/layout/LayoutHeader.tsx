@@ -34,6 +34,22 @@ const LayoutHeader = () => {
   const [currentBoardEditStatus, setCurrentBoardEditStatus] =
     React.useState<CurrentBoardEditStatus>("view");
 
+  // dialog content when select dropdown options
+  const dialogContentForOperationOnBoard =
+    currentBoardEditStatus === "view" ? undefined : currentBoardEditStatus ===
+      "edit" ? (
+      <AddOrEditBoard type="edit" board={displayedBoard} />
+    ) : (
+      <DeleteConfirm
+        title="Delete this board?"
+        description="Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed."
+        onDelete={() => {
+          console.log("delete  board");
+        }}
+        onCancel={() => setDropdownSelectDialogOpen(false)}
+      />
+    );
+
   return (
     <div className="layout-header">
       <div className="logo-wrapper">
@@ -62,21 +78,7 @@ const LayoutHeader = () => {
         <Dialog
           open={dropdownSelectDialogOpen}
           onOpenChange={setDropdownSelectDialogOpen}
-          dialogContent={
-            currentBoardEditStatus ===
-            "view" ? undefined : currentBoardEditStatus === "edit" ? (
-              <AddOrEditBoard type="edit" board={displayedBoard} />
-            ) : (
-              <DeleteConfirm
-                title="Delete this board?"
-                description="Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed."
-                onDelete={() => {
-                  console.log("delete  board");
-                }}
-                onCancel={() => setDropdownSelectDialogOpen(false)}
-              />
-            )
-          }
+          dialogContent={dialogContentForOperationOnBoard}
         >
           <div className="ellipsis-button">
             <Dropdown

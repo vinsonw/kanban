@@ -149,7 +149,7 @@ recharge the batteries a little."
               append({ id: getRandomId(), title: "" });
             }}
           >
-            <Button type="secondary" label="+Add New Subtask" />
+            <Button type="secondary" size="small" label="+Add New Subtask" />
           </div>
         </div>
         {/* status */}
