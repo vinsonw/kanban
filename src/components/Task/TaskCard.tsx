@@ -1,9 +1,10 @@
 import React from "react";
-import AddOrEditTask from "./AddOrEditTask";
 import { Task } from "../../schemas";
-import "./TaskCard.scss";
+import AddOrEditTask from "./AddOrEditTask";
 import Dialog from "../Dialog/Dialog";
 import TaskDetail, { TaskOperation } from "./TaskDetail";
+import DeleteConfirm from "./DeleteConfirm";
+import "./TaskCard.scss";
 
 const TaskCard = (props: Task) => {
   const { title, subtasks } = props;
@@ -32,7 +33,17 @@ const TaskCard = (props: Task) => {
         ) : activeOperationOfTask === "edit" ? (
           <AddOrEditTask type="edit" task={props} />
         ) : activeOperationOfTask === "delete" ? (
-          "delete"
+          <DeleteConfirm
+            title="Delete this task?"
+            description="Are you sure you want to delete the ‘Build settings UI’ task and its
+        subtasks? This action cannot be reversed."
+            onDelete={() => {
+              console.log("delete");
+            }}
+            onCancel={() => {
+              setOpenTaskDetailDialog(false);
+            }}
+          />
         ) : (
           <TaskDetail {...props} onTaskOperation={setActiveOperationOfTask} />
         )

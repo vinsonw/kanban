@@ -2,6 +2,9 @@ import { useSearchParams } from "react-router-dom";
 import BoardItem, { type BoardItemProps } from "./BoardItem";
 import "./BoardList.scss";
 import CreateBoardItemButton from "./CreateNewBoardButton";
+import Dialog from "../../components/Dialog/Dialog";
+import AddOrEditBoard from "../../components/Task/AddOrEditBoard";
+import React from "react";
 
 interface BorderListProps {
   borderList?: Pick<BoardItemProps, "boardName" | "id">[];
@@ -9,6 +12,7 @@ interface BorderListProps {
 
 const BoardList = ({ borderList = [] }: BorderListProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [dialogOpen, setDialogOpen] = React.useState(false);
   return (
     <>
       <div className="all-board-number">ALL BOARDS ({borderList.length})</div>
@@ -20,7 +24,13 @@ const BoardList = ({ borderList = [] }: BorderListProps) => {
           key={item.id}
         />
       ))}
-      <CreateBoardItemButton />
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        dialogContent={<AddOrEditBoard type="add" />}
+      >
+        <CreateBoardItemButton onClick={() => setDialogOpen(true)} />
+      </Dialog>
     </>
   );
 };

@@ -1,4 +1,4 @@
-.add-or-edit-task {
+.add-or-edit-board {
   width: 480px;
   max-height: 900px;
   background-color: var(--kb-color-white);
@@ -52,10 +52,10 @@
     .section-title {
       margin-bottom: 8px;
     }
+  }
 
-    .save-button-wrapper {
-      margin-top: 24px;
-    }
+  .save-button-wrapper {
+    margin-top: 24px;
   }
 }
 

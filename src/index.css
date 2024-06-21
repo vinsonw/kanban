@@ -15,7 +15,6 @@
 body,
 #root {
   min-height: 100vh;
-  min-width: fit-content;
 }
 img,
 picture,
@@ -26,7 +25,10 @@ video {
 }
 
 ::-webkit-scrollbar {
+  /* vertical */
   width: 6px;
+  /* horizontal */
+  height: 6px;
 }
 
 /* Track */

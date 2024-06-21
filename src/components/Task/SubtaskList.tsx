@@ -4,12 +4,10 @@ import "./SubtaskList.scss";
 
 interface Props {
   subtaskList: Subtask[];
+  toggleSubtask: (subtaskId: string, isCompleted: boolean) => void;
 }
 
-const SubtaskList = ({ subtaskList }: Props) => {
-  const handleCheckChange = (subtaskId: string) => {
-    console.log("sub, checked", subtaskId);
-  };
+const SubtaskList = ({ subtaskList, toggleSubtask }: Props) => {
   return (
     <div className="subtask-list-wrapper">
       <p className="list-title">{`Subtasks(${subtaskList.filter((item) => item.isCompleted).length} of ${subtaskList.length})`}</p>
@@ -17,12 +15,15 @@ const SubtaskList = ({ subtaskList }: Props) => {
         <div
           className="subtask-item-wrapper"
           key={subtask.title}
-          onClick={() => handleCheckChange(subtask.title)}
+          onClick={() => toggleSubtask(subtask.id, !subtask.isCompleted)}
         >
           <Checkbox.Root
             className="indicator"
             checked={subtask.isCompleted}
             id={subtask.title}
+            onCheckedChange={() =>
+              toggleSubtask(subtask.id, !subtask.isCompleted)
+            }
           >
             <Checkbox.Indicator className="icon-wrapper">
               <svg width="10" height="8" xmlns="http://www.w3.org/2000/svg">

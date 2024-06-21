@@ -5,7 +5,6 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 export type Option<T extends string = string> = {
   id: T;
   label: string;
-  dialogContentComponent: React.FC;
   type?: "normal" | "warn";
 };
 interface Props {

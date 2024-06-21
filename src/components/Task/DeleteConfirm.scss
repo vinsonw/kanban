@@ -1,0 +1,31 @@
+.delete-confirm-wrapper {
+  border-radius: 6px;
+  background: #ffffff;
+  width: 480px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .title {
+    color: var(--kb-color-red);
+    font-family: Plus Jakarta Sans;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .description {
+    color: var(--kb-color-medium-gray);
+    font-family: Plus Jakarta Sans;
+    font-weight: medium;
+    font-size: 13px;
+    line-height: 23px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .buttons {
+    display: flex;
+    gap: 16px;
+  }
+}
