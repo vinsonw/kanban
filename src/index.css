@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
 *,
 *::before,
 *::after {
@@ -8,6 +10,7 @@
   padding: 0;
   font: inherit;
   border: 0;
+  font-family: Plus Jakarta Sans;
 }
 /* html {
   color-scheme: dark light;

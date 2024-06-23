@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import "./Dropdown.scss";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import React from "react";
 
 export type Option<T> = {
   id: T;
@@ -17,15 +18,19 @@ interface Props<T> {
   className?: string;
 }
 
-const Dropdown = <T extends string>({
-  children,
-  optionList,
-  open,
-  disabled,
-  onOpenChange,
-  onSelect = () => {},
-  className,
-}: Props<T>) => {
+const _Dropdown = <T extends string>(
+  {
+    children,
+    optionList,
+    open,
+    disabled,
+    onOpenChange,
+    onSelect = () => {},
+    className,
+  }: Props<T>,
+  // ref is not needed here since wrapping Dialog is controlled.
+  _ref: React.ForwardedRef<HTMLButtonElement>,
+) => {
   return (
     <DropdownMenu.Root open={open} onOpenChange={onOpenChange}>
       <DropdownMenu.Trigger
@@ -50,4 +55,6 @@ const Dropdown = <T extends string>({
     </DropdownMenu.Root>
   );
 };
+const Dropdown = React.forwardRef(_Dropdown) as typeof _Dropdown;
+
 export default Dropdown;

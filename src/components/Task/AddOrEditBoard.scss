@@ -83,6 +83,9 @@
 
     &.error {
       border: 1px solid var(--kb-color-red);
+      &:focus-visible {
+        outline: 0;
+      }
     }
   }
 

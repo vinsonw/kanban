@@ -4,6 +4,9 @@
   @include set-dynamic-width-of-dialog();
   border-radius: 6px;
   background: #ffffff;
+  &:focus-visible {
+    outline: 0;
+  }
   @include dark {
     background: var(--kb-color-dark-gray);
   }

@@ -7,8 +7,11 @@ import AddOrEditBoard from "../Task/AddOrEditBoard";
 
 export const BoardContent = () => {
   const board = useDisplayedBoardContent();
-  const { columns, name } = board;
-  return columns.length > 0 ? (
+  if (!board) {
+    return <EmptyBoard boardExists={false} />;
+  }
+  const { columns } = board;
+  return (
     <div className="columns-wrapper">
       {columns.map((column) => (
         <Column key={column.name} {...column} />
@@ -19,7 +22,5 @@ export const BoardContent = () => {
         </button>
       </Dialog>
     </div>
-  ) : (
-    <EmptyBoard boardExists={!!name} />
   );
 };

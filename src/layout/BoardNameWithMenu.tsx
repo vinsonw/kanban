@@ -12,6 +12,7 @@ const BoardNameWithMenu = () => {
   const [openCreateNewBoard, setOpenCreateNewBoard] = React.useState(false);
   const isMobile = useIsMobile();
   const board = useDisplayedBoardContent();
+  if (!board) return "";
   useEffect(() => {
     if (open) {
       setOpenCreateNewBoard(false);

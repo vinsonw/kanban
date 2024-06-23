@@ -33,8 +33,8 @@ const LayoutHeader = () => {
 
   // dialog content when select dropdown options
   const dialogContentForOperationOnBoard =
-    currentBoardEditStatus === "view" ? undefined : currentBoardEditStatus ===
-      "edit" ? (
+    !displayedBoard ? null : currentBoardEditStatus ===
+      "view" ? undefined : currentBoardEditStatus === "edit" ? (
       <AddOrEditBoard type="edit" board={displayedBoard} />
     ) : (
       <DeleteConfirm
@@ -92,17 +92,20 @@ const LayoutHeader = () => {
             </span>
           </Dialog>
         </div>
-        <Dialog
-          open={dropdownSelectDialogOpen}
-          onOpenChange={setDropdownSelectDialogOpen}
-          dialogContent={dialogContentForOperationOnBoard}
-        >
-          <div className="ellipsis-button">
+
+        <div className="ellipsis-button">
+          <Dialog
+            open={dropdownSelectDialogOpen}
+            onOpenChange={setDropdownSelectDialogOpen}
+            dialogContent={dialogContentForOperationOnBoard}
+          >
             <Dropdown<CurrentBoardEditStatus>
               className="ellipsis-wrapper"
+              disabled={!displayedBoard}
               open={dropDownOpen}
               onSelect={(id) => {
                 setCurrentBoardEditStatus(id);
+                setDropdownSelectDialogOpen(true);
               }}
               onOpenChange={setDropDownOpen}
               optionList={[
@@ -125,8 +128,8 @@ const LayoutHeader = () => {
                 </g>
               </svg>
             </Dropdown>
-          </div>
-        </Dialog>
+          </Dialog>
+        </div>
       </div>
     </div>
   );
