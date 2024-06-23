@@ -127,13 +127,9 @@
   padding: 8px 16px;
   border-radius: 4px;
   border: 1px solid #828fa33f;
-  outline: none;
 
   color: var(--kb-color-black);
   @include dark {
     color: var(--kb-color-white);
-  }
-  &:focus-visible {
-    border: 1px solid var(--kb-color-main-purple);
   }
 }

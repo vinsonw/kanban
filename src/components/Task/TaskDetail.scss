@@ -33,12 +33,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      &:focus {
-        outline: none;
-      }
-      &:focus-visible {
-        outline: auto;
-      }
     }
     margin-bottom: 20px;
   }

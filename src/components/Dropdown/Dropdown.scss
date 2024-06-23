@@ -29,10 +29,6 @@
     border-radius: 2px;
     padding: 4px;
 
-    &:focus {
-      outline: none;
-    }
-
     &:focus-visible,
     &:hover {
       color: var(--kb-color-white);

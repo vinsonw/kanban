@@ -25,7 +25,10 @@ video {
   max-width: 100%;
 }
 
-:focus {
+*:focus {
+  outline: none;
+}
+*:focus-visible {
   outline: 1px solid var(--kb-color-main-purple);
 }
 
