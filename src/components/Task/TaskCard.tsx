@@ -49,13 +49,13 @@ const TaskCard = (props: Task) => {
         )
       }
     >
-      <div
+      <button
         className="task-wrapper"
         onClick={() => setOpenTaskDetailDialog(true)}
       >
         <div className="title">{title}</div>
         <div className="subtask-progress">{`${doneSubtaskNumber} of ${subtasks.length} subtasks`}</div>
-      </div>
+      </button>
     </Dialog>
   );
 };

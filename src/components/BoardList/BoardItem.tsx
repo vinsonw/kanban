@@ -15,7 +15,7 @@ const BoardItem = ({
   id,
 }: BoardItemProps) => {
   return (
-    <div
+    <button
       className={clsx("board-item", { selected })}
       onClick={() => onSelect(id)}
     >
@@ -31,7 +31,7 @@ const BoardItem = ({
         />
       </svg>
       <div className="board-name">{boardName}</div>
-    </div>
+    </button>
   );
 };
 

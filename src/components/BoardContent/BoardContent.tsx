@@ -14,9 +14,9 @@ export const BoardContent = () => {
         <Column key={column.name} {...column} />
       ))}
       <Dialog dialogContent={<AddOrEditBoard type="edit" board={board} />}>
-        <div className="new-column-button-wrapper">
+        <button className="new-column-button-wrapper">
           <div className="label">+New Column</div>
-        </div>
+        </button>
       </Dialog>
     </div>
   ) : (

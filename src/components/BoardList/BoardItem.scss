@@ -1,6 +1,7 @@
 @use "../../scss/" as *;
 
 .board-item {
+  background-color: transparent;
   display: flex;
   transition: 0.3s background-color;
   height: 48px;

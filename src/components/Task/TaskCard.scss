@@ -1,6 +1,8 @@
 @use "../../scss/" as *;
 
 .task-wrapper {
+  width: 100%;
+  text-align: left;
   background-color: var(--kb-color-white);
   @include dark {
     background-color: var(--kb-color-dark-gray);

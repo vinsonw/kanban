@@ -25,6 +25,10 @@ video {
   max-width: 100%;
 }
 
+:focus {
+  outline: 1px solid var(--kb-color-main-purple);
+}
+
 ::-webkit-scrollbar {
   /* vertical */
   width: 6px;
