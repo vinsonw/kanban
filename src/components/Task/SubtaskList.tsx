@@ -15,12 +15,20 @@ const SubtaskList = ({ subtaskList, toggleSubtask }: Props) => {
         <div
           className="subtask-item-wrapper"
           key={subtask.title}
-          onClick={() => toggleSubtask(subtask.id, !subtask.isCompleted)}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              toggleSubtask(subtask.id, !subtask.isCompleted);
+            }
+          }}
         >
           <Checkbox.Root
             className="indicator"
             checked={subtask.isCompleted}
-            id={subtask.title}
+            id={subtask.id}
+            onClick={(e) => e.stopPropagation()}
+            onCheckedChange={() => {
+              toggleSubtask(subtask.id, !subtask.isCompleted);
+            }}
           >
             <Checkbox.Indicator className="icon-wrapper">
               <svg width="10" height="8" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +41,7 @@ const SubtaskList = ({ subtaskList, toggleSubtask }: Props) => {
               </svg>
             </Checkbox.Indicator>
           </Checkbox.Root>
-          <label className="label" htmlFor={subtask.title}>
+          <label className="label" htmlFor={subtask.id}>
             {subtask.title}
           </label>
         </div>
