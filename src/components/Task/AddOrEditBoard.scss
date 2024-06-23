@@ -1,17 +1,28 @@
+@use "../../scss/" as *;
+
 .add-or-edit-board {
-  width: 480px;
+  @include set-dynamic-width-of-dialog();
   max-height: 900px;
   background-color: var(--kb-color-white);
+  @include dark {
+    background-color: var(--kb-color-vary-dark-gray);
+  }
   border-radius: 6px;
   padding: 32px;
   .section-title {
     color: var(--kb-color-medium-gray);
+    @include dark {
+      color: var(--kb-color-white);
+    }
     font-weight: bold;
     font-size: var(--kb-font-size-body-m);
     margin-bottom: 8px;
   }
   .what-to-do-with-the-task {
     color: var(--kb-color-black);
+    @include dark {
+      color: var(--kb-color-white);
+    }
     font-weight: bold;
     font-size: var(--kb-font-size-heading-l);
   }
@@ -64,9 +75,8 @@
   width: 100%;
   position: relative;
   .input-for-task-field {
-    background-color: #fff;
+    background-color: inherit;
     width: 100%;
-    color: var(--kb-color-black);
     font-weight: 500;
     font-size: var(--kb-font-size-body-l);
     line-height: 23px;
@@ -99,11 +109,11 @@
   width: 100%;
   height: 112px;
   resize: none;
+  background-color: inherit;
 
   font-size: 13px;
   &::placeholder {
     opacity: 0.25;
-    color: #000112;
     font-family: Plus Jakarta Sans;
     font-weight: 500;
     line-height: 23px;
@@ -118,6 +128,11 @@
   border-radius: 4px;
   border: 1px solid #828fa33f;
   outline: none;
+
+  color: var(--kb-color-black);
+  @include dark {
+    color: var(--kb-color-white);
+  }
   &:focus-visible {
     border: 1px solid var(--kb-color-main-purple);
   }

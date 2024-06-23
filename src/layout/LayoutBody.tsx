@@ -3,12 +3,30 @@ import SideBar from "./Sidebar";
 import "./LayoutBody.scss";
 import SidebarToggle from "../components/SidebarToggle/SidebarToggle";
 import { BoardContent } from "../components/BoardContent";
+import { useIsMobile, useMediaQuery } from "../hooks";
+import cssVars from "../scss/vars.module.scss";
 
 export const SIDEBAR_TRANSITION_TIME = 100;
 
 const LayoutBody = () => {
   const [sidebarExpanded, setSidebarExpanded] = React.useState(true);
+  const [sidebarCollapsedByScreenChange, setSidebarCollapsedByScreenChange] =
+    React.useState(false);
   const [displayShowSidebar, setDisplayShowSidebar] = React.useState(true);
+
+  const matchesMobile = useIsMobile();
+
+  useEffect(() => {
+    if (matchesMobile && sidebarExpanded) {
+      setSidebarExpanded(false);
+      setSidebarCollapsedByScreenChange(true);
+    }
+    if (!matchesMobile && sidebarCollapsedByScreenChange) {
+      setSidebarExpanded(true);
+      setSidebarCollapsedByScreenChange(false);
+    }
+  }, [matchesMobile]);
+
   useEffect(() => {
     if (!sidebarExpanded) {
       setTimeout(() => setDisplayShowSidebar(true), SIDEBAR_TRANSITION_TIME);
@@ -16,6 +34,7 @@ const LayoutBody = () => {
     }
     setDisplayShowSidebar(false);
   }, [sidebarExpanded]);
+
   return (
     <div
       className="layout-body"
@@ -32,7 +51,7 @@ const LayoutBody = () => {
         <SideBar onHideSideBar={() => setSidebarExpanded(false)} />
       </div>
       {/* fixed position */}
-      {displayShowSidebar && (
+      {displayShowSidebar && !matchesMobile && (
         <div className="show-sidebar-wrapper">
           <SidebarToggle.ShowSidebar onClick={() => setSidebarExpanded(true)} />
         </div>

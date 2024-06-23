@@ -1,5 +1,13 @@
 $main-purple: #635fc7;
+$breakpoints: (
+  // modal width instead of normal 375px
+  sm: 480px
+);
 
 :export {
   mainPurple: $main-purple;
+  // breakpoints: $breakpoints;
+  @each $name, $width in $breakpoints {
+    #{$name}: $width;
+  }
 }

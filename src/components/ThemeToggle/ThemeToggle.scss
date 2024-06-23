@@ -1,3 +1,5 @@
+@use "../../scss/" as *;
+
 .primitive-toggle {
   width: 40px;
   height: 20px;
@@ -25,7 +27,7 @@
   justify-content: center;
   gap: 30px;
   background-color: var(--kb-color-light-gray);
-  @at-root [data-theme="dark"] & {
+  @include dark {
     background-color: var(--kb-color-very-dark-gray);
   }
   width: 250px;

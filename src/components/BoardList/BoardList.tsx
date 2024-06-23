@@ -8,9 +8,15 @@ import React from "react";
 
 interface BorderListProps {
   borderList?: Pick<BoardItemProps, "boardName" | "id">[];
+  onCreateNewBoard?: () => void;
+  onSelectBoard?: (id: string) => void;
 }
 
-const BoardList = ({ borderList = [] }: BorderListProps) => {
+const BoardList = ({
+  borderList = [],
+  onCreateNewBoard,
+  onSelectBoard,
+}: BorderListProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [dialogOpen, setDialogOpen] = React.useState(false);
   return (
@@ -20,7 +26,10 @@ const BoardList = ({ borderList = [] }: BorderListProps) => {
         <BoardItem
           {...item}
           selected={item.id === searchParams.get("boardId")}
-          onSelect={() => setSearchParams({ boardId: item.id })}
+          onSelect={() => {
+            setSearchParams({ boardId: item.id });
+            onSelectBoard?.(item.id);
+          }}
           key={item.id}
         />
       ))}
@@ -29,7 +38,12 @@ const BoardList = ({ borderList = [] }: BorderListProps) => {
         onOpenChange={setDialogOpen}
         dialogContent={<AddOrEditBoard type="add" />}
       >
-        <CreateBoardItemButton onClick={() => setDialogOpen(true)} />
+        <CreateBoardItemButton
+          onClick={() => {
+            onCreateNewBoard?.();
+            setDialogOpen(true);
+          }}
+        />
       </Dialog>
     </>
   );

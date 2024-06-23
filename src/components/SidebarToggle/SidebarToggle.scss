@@ -18,6 +18,10 @@
   height: 48px;
   cursor: pointer;
   background-color: var(--kb-color-main-purple);
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: var(--kb-color-main-purple-hover);
+  }
   border-bottom-right-radius: 100px;
   border-top-right-radius: 100px;
   display: flex;

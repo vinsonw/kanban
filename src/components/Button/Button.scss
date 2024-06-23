@@ -1,3 +1,5 @@
+@use "../../scss/" as *;
+
 .button {
   --height: 48px;
   width: 100%;
@@ -27,13 +29,20 @@
   &.disabled {
     background-color: var(--kb-color-disabled) !important;
     color: var(--kb-color-white) !important;
-    @at-root [data-theme="dark"] & {
+    cursor: not-allowed;
+    @include dark {
       background-color: #39395b !important;
       color: #606169 !important;
     }
   }
   &.secondary {
     background-color: var(--kb-color-main-purple-alpha-10);
+    @include dark {
+      background-color: var(--kb-color-white);
+      &:hover {
+        background-color: var(--kb-color-white);
+      }
+    }
     color: var(--kb-color-main-purple);
     transition: 0.2s color;
     &:hover {

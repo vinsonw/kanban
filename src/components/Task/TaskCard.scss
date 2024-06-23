@@ -2,6 +2,10 @@
 
 .task-wrapper {
   background-color: var(--kb-color-white);
+  @include dark {
+    background-color: var(--kb-color-dark-gray);
+    box-shadow: 0px 4px 6px 0px #364e7e19;
+  }
   border-radius: 8px;
   padding: 22px 16px;
   cursor: pointer;
@@ -9,6 +13,9 @@
     font-size: var(--kb-font-size-heading-m);
     font-weight: 800;
     @include multiline-ellipsis(3);
+    @include dark {
+      color: var(--kb-color-white);
+    }
   }
   .subtask-progress {
     color: var(--kb-color-medium-gray);

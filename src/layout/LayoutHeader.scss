@@ -5,13 +5,21 @@
   display: flex;
   align-items: center;
   background-color: var(--kb-layout-bg);
+  overflow: hidden;
 
   .logo-wrapper {
     width: var(--kb-sidebar-with);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-right: 1px solid var(--kb-layout-border-color);
     height: 100%;
-    padding-top: 33px;
-    padding-left: 34px;
+    flex-shrink: 0;
+
+    @include mobile {
+      width: 56px;
+      border-right: 0;
+    }
   }
 
   .board-banner {
@@ -20,19 +28,14 @@
     align-items: center;
     height: 100%;
     border-bottom: 1px solid var(--kb-layout-border-color);
-    .board-name {
-      font-size: var(--kb-font-size-heading-xl);
-      font-weight: 800;
-      margin-left: 24px;
-      max-width: 240px;
-      @extend %single-line-ellipsis;
-
-      @at-root [data-theme="dark"] & {
-        color: var(--kb-color-white);
-      }
-    }
     .add-task-button {
       margin-left: auto;
+      font-size: 12px;
+      flex-shrink: 0;
+      svg {
+        width: 12px;
+        height: 12px;
+      }
     }
     .ellipsis-button {
       justify-self: end;
@@ -40,9 +43,16 @@
   }
 }
 
-.ellipsis-wrapper {
-  cursor: pointer;
-  margin-right: 25px;
-  margin-left: 15px;
-  padding: 5px;
+.ellipsis-button {
+  flex-shrink: 0;
+  .ellipsis-wrapper {
+    background-color: transparent;
+    cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+    }
+    margin-right: 25px;
+    margin-left: 15px;
+    padding: 5px;
+  }
 }

@@ -1,3 +1,5 @@
+@use "./vars.module.scss" as vars;
+
 %single-line-ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -10,4 +12,23 @@
   -webkit-line-clamp: $line-num;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@mixin mobile($width: map-get(vars.$breakpoints, "sm")) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin set-dynamic-width-of-dialog {
+  width: 480px;
+  @include mobile(480px) {
+    width: 343px;
+  }
+}
+
+@mixin dark {
+  [data-theme="dark"] & {
+    @content;
+  }
 }

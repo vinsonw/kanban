@@ -1,7 +1,12 @@
+@use "../../scss/" as *;
 .task-detail-wrapper {
-  width: 480px;
+  @include set-dynamic-width-of-dialog();
   max-height: 900px;
   background-color: var(--kb-color-white);
+  @include dark {
+    background-color: var(--kb-color-dark-gray);
+  }
+
   border-radius: 6px;
   padding: 32px;
   .title-wrapper {
@@ -11,6 +16,9 @@
     --ellipsis-button-width: 10px;
     .title {
       color: var(--kb-color-black);
+      @include dark {
+        color: var(--kb-color-white);
+      }
       font-weight: bold;
       font-size: 18px;
       width: calc(100% - var(--ellipsis-button-width));
@@ -19,6 +27,9 @@
       width: var(--ellipsis-button-width);
       cursor: pointer;
       background-color: var(--kb-color-white);
+      @include dark {
+        background-color: var(--kb-color-dark-gray);
+      }
       display: flex;
       justify-content: center;
       align-items: center;

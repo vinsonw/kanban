@@ -1,3 +1,5 @@
+@use "../../scss/" as *;
+
 .subtask-list-wrapper {
   margin-top: 24px;
   .list-title {
@@ -11,6 +13,10 @@
   min-height: 40px;
   color: var(--kb-color-black);
   background-color: var(--kb-color-light-gray);
+  @include dark {
+    background-color: var(--kb-color-vary-dark-gray);
+  }
+
   padding: 12px;
   font-weight: bold;
   font-size: 12px;
@@ -29,6 +35,9 @@
       + .label {
         opacity: 0.5;
         color: var(--kb-color-black);
+        @include dark {
+          color: var(--kb-color-white);
+        }
         font-family: Plus Jakarta Sans;
         font-weight: bold;
         font-size: 12px;
@@ -40,6 +49,9 @@
     }
     &[data-state="unchecked"] {
       background: var(--kb-color-white);
+      @include dark {
+        background: var(--kb-dark-gray);
+      }
       border: 1px solid #828fa33f;
     }
     width: 16px;
@@ -50,6 +62,9 @@
   }
   .label {
     cursor: pointer;
+    @include dark {
+      color: var(--kb-color-white);
+    }
   }
 }
 

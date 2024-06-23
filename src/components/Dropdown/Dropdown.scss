@@ -1,19 +1,39 @@
+@use "../../scss/" as *;
+
+.dropdown-trigger {
+  padding: 5px;
+  background-color: transparent;
+}
 .dropdown-content {
   min-width: 192px;
-  background-color: var(--kb-color-white);
   border-radius: 8px;
   box-shadow: 0px 10px 20px 0px #364e7e3f;
   padding: 16px;
+
+  background-color: var(--kb-color-white);
   color: var(--kb-color-medium-gray);
+
+  @include dark {
+    background-color: var(--kb-color-vary-dark-gray);
+    color: var(--kb-color-medium-gray);
+  }
+
   font-weight: 500;
   font-size: var(--kb-font-size-body-l);
   line-height: 23px;
   letter-spacing: 0px;
   text-align: left;
+
   .item {
     cursor: pointer;
     border-radius: 2px;
     padding: 4px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible,
     &:hover {
       color: var(--kb-color-white);
       background-color: var(--kb-color-main-purple-hover);

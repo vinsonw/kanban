@@ -1,6 +1,12 @@
+@use "../../scss/" as *;
+
 .delete-confirm-wrapper {
+  @include set-dynamic-width-of-dialog();
   border-radius: 6px;
   background: #ffffff;
+  @include dark {
+    background: var(--kb-color-dark-gray);
+  }
   width: 480px;
   padding: 32px;
   display: flex;
@@ -27,5 +33,8 @@
   .buttons {
     display: flex;
     gap: 16px;
+    @include mobile {
+      flex-direction: column;
+    }
   }
 }

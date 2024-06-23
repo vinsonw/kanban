@@ -13,18 +13,27 @@ interface Props<T> {
   onSelect?: (id: T) => void;
   open: boolean;
   onOpenChange: (openToSet: boolean) => void;
+  disabled?: boolean;
+  className?: string;
 }
 
 const Dropdown = <T extends string>({
   children,
   optionList,
   open,
+  disabled,
   onOpenChange,
   onSelect = () => {},
+  className,
 }: Props<T>) => {
   return (
     <DropdownMenu.Root open={open} onOpenChange={onOpenChange}>
-      <DropdownMenu.Trigger asChild>{children}</DropdownMenu.Trigger>
+      <DropdownMenu.Trigger
+        disabled={disabled}
+        className={clsx("dropdown-trigger", className)}
+      >
+        {children}
+      </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="dropdown-content" sideOffset={5}>
           {optionList.map(({ id, label, type = "normal" }) => (

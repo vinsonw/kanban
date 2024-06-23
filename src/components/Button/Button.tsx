@@ -6,7 +6,8 @@ interface Props {
   size?: "large" | "small";
   type?: "primary" | "secondary" | "danger";
   nativeType?: "button" | "submit";
-  label: string;
+  style?: React.CSSProperties;
+  label: string | React.ReactNode;
   disabled?: boolean;
   onClick?: () => void;
 }
@@ -20,6 +21,7 @@ const Button = React.forwardRef(
       nativeType = "button",
       label,
       onClick,
+      style = {},
     }: Props,
     forwardRef: React.ForwardedRef<HTMLButtonElement>,
   ) => {
@@ -29,6 +31,7 @@ const Button = React.forwardRef(
         type={nativeType}
         disabled={disabled}
         className={clsx("button", size, type, { disabled })}
+        style={style}
         onClick={() => onClick?.()}
       >
         {label}

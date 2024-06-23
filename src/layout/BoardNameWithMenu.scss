@@ -1,0 +1,53 @@
+@use "../scss/" as *;
+
+.board-name-wrapper {
+  font-size: var(--kb-font-size-heading-xl);
+  margin-left: 24px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+
+  max-width: 240px;
+
+  .name {
+    @extend %single-line-ellipsis;
+  }
+
+  @include mobile {
+    max-width: 160px;
+    .name {
+      max-width: 80%;
+    }
+    font-size: var(--kb-font-size-heading-l);
+    margin-left: 4px;
+    .icon-wrapper {
+      padding: 5px;
+    }
+  }
+  font-weight: 800;
+
+  @include dark {
+    color: var(--kb-color-white);
+  }
+}
+
+.menu-wrapper {
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px 0px #364e7e3f;
+  background: #ffffff;
+  @include dark {
+    background-color: var(--kb-color-very-dark-gray);
+  }
+  .mobile-board-list {
+    padding-top: 16px;
+    padding-right: 24px;
+  }
+
+  .theme-toggle-wrapper {
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+  }
+}

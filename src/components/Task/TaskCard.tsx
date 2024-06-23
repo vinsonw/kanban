@@ -18,7 +18,7 @@ const TaskCard = (props: Task) => {
 
   // reset operation to 'view' when dialog shows up
   React.useEffect(() => {
-    if (openTaskDetailDialog) {
+    if (!openTaskDetailDialog) {
       setActiveOperationOfTask("view");
     }
   }, [openTaskDetailDialog]);

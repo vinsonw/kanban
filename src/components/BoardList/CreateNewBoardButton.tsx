@@ -4,7 +4,7 @@ import React from "react";
 
 const CreateBoardItemButton = React.forwardRef(
   (
-    { onClick }: { onClick: () => void },
+    { onClick }: { onClick: (e: React.MouseEvent) => void },
     forwardRef: React.ForwardedRef<HTMLDivElement>,
   ) => {
     return (

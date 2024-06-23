@@ -1,17 +1,28 @@
+@use "../../scss/" as *;
+
 .add-or-edit-task {
-  width: 480px;
+  @include set-dynamic-width-of-dialog();
   max-height: 900px;
   background-color: var(--kb-color-white);
+  @include dark {
+    background-color: var(--kb-color-dark-gray);
+  }
   border-radius: 6px;
   padding: 32px;
   .section-title {
     color: var(--kb-color-medium-gray);
+    @include dark {
+      color: var(--kb-color-white);
+    }
     font-weight: bold;
     font-size: var(--kb-font-size-body-m);
     margin-bottom: 8px;
   }
   .what-to-do-with-the-task {
     color: var(--kb-color-black);
+    @include dark {
+      color: var(--kb-color-white);
+    }
     font-weight: bold;
     font-size: var(--kb-font-size-heading-l);
   }
@@ -64,7 +75,6 @@
   width: 100%;
   position: relative;
   .input-for-task-field {
-    background-color: #fff;
     width: 100%;
     color: var(--kb-color-black);
     font-weight: 500;
@@ -103,8 +113,10 @@
   font-size: 13px;
   &::placeholder {
     opacity: 0.25;
-    color: #000112;
-    font-family: Plus Jakarta Sans;
+    color: var(--kb-color-black);
+    @include dark {
+      color: var(--kb-color-white);
+    }
     font-weight: 500;
     line-height: 23px;
     letter-spacing: 0px;

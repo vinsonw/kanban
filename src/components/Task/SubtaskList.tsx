@@ -21,9 +21,6 @@ const SubtaskList = ({ subtaskList, toggleSubtask }: Props) => {
             className="indicator"
             checked={subtask.isCompleted}
             id={subtask.title}
-            onCheckedChange={() =>
-              toggleSubtask(subtask.id, !subtask.isCompleted)
-            }
           >
             <Checkbox.Indicator className="icon-wrapper">
               <svg width="10" height="8" xmlns="http://www.w3.org/2000/svg">

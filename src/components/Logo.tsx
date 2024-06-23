@@ -1,10 +1,28 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "../hooks";
+import cssVars from "../scss/vars.module.scss";
 
 const Logo = () => {
   const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
+  const matchesMobile = useMediaQuery(`(max-width: ${cssVars.sm})`);
+  if (matchesMobile)
+    return (
+      <svg
+        onClick={() => navigate("/")}
+        width="24"
+        height="25"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g fill="#635FC7" fillRule="evenodd">
+          <rect width="6" height="25" rx="2" />
+          <rect opacity=".75" x="9" width="6" height="25" rx="2" />
+          <rect opacity=".5" x="18" width="6" height="25" rx="2" />
+        </g>
+      </svg>
+    );
   return theme === "dark" ? (
     <svg
       onClick={() => navigate("/")}
