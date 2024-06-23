@@ -4,16 +4,12 @@ import Dialog from "../Dialog/Dialog";
 import AddOrEditBoard from "../Task/AddOrEditBoard";
 import { useDisplayedBoardContent } from "../../hooks";
 
-export const EmptyBoard = ({
-  boardExists = true,
-}: {
-  boardExists?: boolean;
-}) => {
+export const EmptyBoard = () => {
   const board = useDisplayedBoardContent();
   return (
     <div className="empty-board-wrapper">
       <div className="empty-board-content">
-        {boardExists ? (
+        {board ? (
           <>
             <p className="empty-text">
               This board is empty. Create a new column to get started.

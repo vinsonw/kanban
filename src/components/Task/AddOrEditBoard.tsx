@@ -1,13 +1,14 @@
 import "./AddOrEditBoard.scss";
-import { Board } from "../../schemas";
+import { Board, Column } from "../../schemas";
 import clsx from "clsx";
 import Button from "../Button/Button";
 import { getRandomId } from "../../utils";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { updateBoardContent } from "../../apis";
 
-type Props =
+type Props = (
   | {
       type: "edit";
       board: Board;
@@ -15,7 +16,10 @@ type Props =
   | {
       type: "add";
       board?: Board;
-    };
+    }
+) & {
+  onSuccess?: () => void;
+};
 
 const FormValidateSchema = z.object({
   name: z.string().min(1),
@@ -31,6 +35,7 @@ const AddOrEditBoard = ({
     name: "",
     columns: [],
   },
+  onSuccess,
 }: Props) => {
   const {
     register,
@@ -54,8 +59,18 @@ const AddOrEditBoard = ({
   const onSubmit: SubmitHandler<z.infer<typeof FormValidateSchema>> = (
     data,
   ) => {
-    const formDataToSave = { ...data };
-    console.log("formDataToSave", formDataToSave);
+    //@ts-ignore
+    data.id = board.id;
+    const newCompleteColumns: Column[] = data.columns.map((col) => {
+      const oldCol = board.columns.find((_col) => _col.id === col.id);
+      if (oldCol) return { ...oldCol, ...col };
+      return { ...col, tasks: [], iconColor: "" };
+    });
+    data.columns = newCompleteColumns;
+    const res = updateBoardContent(data as Board);
+    if (res.code === "success") {
+      onSuccess?.();
+    }
   };
 
   return (

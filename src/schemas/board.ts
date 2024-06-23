@@ -13,14 +13,14 @@ export const Task = z.object({
   title: z.string(),
   description: z.string(),
   status: z.string(),
-  subtasks: z.array(Subtask),
+  subtasks: z.array(Subtask).default([]),
 });
 export type Task = z.infer<typeof Task>;
 
 export const Column = z.object({
   id: z.string(),
   name: z.string(),
-  tasks: z.array(Task),
+  tasks: z.array(Task).default([]),
   iconColor: z.string().default(cssVars.mainPurple),
 });
 export type Column = z.infer<typeof Column>;

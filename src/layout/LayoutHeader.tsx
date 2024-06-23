@@ -25,8 +25,7 @@ const LayoutHeader = () => {
 
   const [taskDialogOpen, setTaskDialogOpen] = React.useState(false);
   const [dropDownOpen, setDropDownOpen] = React.useState(false);
-  const [dropdownSelectDialogOpen, setDropdownSelectDialogOpen] =
-    React.useState(false);
+  const [boardDialogOpen, setBoardDialogOpen] = React.useState(false);
   const [currentBoardEditStatus, setCurrentBoardEditStatus] =
     React.useState<CurrentBoardEditStatus>("view");
   const isMobile = useIsMobile();
@@ -35,7 +34,13 @@ const LayoutHeader = () => {
   const dialogContentForOperationOnBoard =
     !displayedBoard ? null : currentBoardEditStatus ===
       "view" ? undefined : currentBoardEditStatus === "edit" ? (
-      <AddOrEditBoard type="edit" board={displayedBoard} />
+      <AddOrEditBoard
+        type="edit"
+        board={displayedBoard}
+        onSuccess={() => {
+          setBoardDialogOpen(false);
+        }}
+      />
     ) : (
       <DeleteConfirm
         title="Delete this board?"
@@ -43,7 +48,7 @@ const LayoutHeader = () => {
         onDelete={() => {
           console.log("delete  board");
         }}
-        onCancel={() => setDropdownSelectDialogOpen(false)}
+        onCancel={() => setBoardDialogOpen(false)}
       />
     );
 
@@ -95,8 +100,8 @@ const LayoutHeader = () => {
 
         <div className="ellipsis-button">
           <Dialog
-            open={dropdownSelectDialogOpen}
-            onOpenChange={setDropdownSelectDialogOpen}
+            open={boardDialogOpen}
+            onOpenChange={setBoardDialogOpen}
             dialogContent={dialogContentForOperationOnBoard}
           >
             <Dropdown<CurrentBoardEditStatus>
@@ -105,7 +110,7 @@ const LayoutHeader = () => {
               open={dropDownOpen}
               onSelect={(id) => {
                 setCurrentBoardEditStatus(id);
-                setDropdownSelectDialogOpen(true);
+                setBoardDialogOpen(true);
               }}
               onOpenChange={setDropDownOpen}
               optionList={[

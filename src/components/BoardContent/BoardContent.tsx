@@ -7,8 +7,8 @@ import AddOrEditBoard from "../Task/AddOrEditBoard";
 
 export const BoardContent = () => {
   const board = useDisplayedBoardContent();
-  if (!board) {
-    return <EmptyBoard boardExists={false} />;
+  if (!board || !board.columns.length) {
+    return <EmptyBoard />;
   }
   const { columns } = board;
   return (

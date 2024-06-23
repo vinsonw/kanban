@@ -23,9 +23,15 @@ importers:
       '@radix-ui/react-select':
         specifier: ^2.0.0
         version: 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-query':
+        specifier: ^5.45.1
+        version: 5.45.1(react@18.3.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -48,6 +54,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.2.2
         version: 19.2.2
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/react':
         specifier: ^18.2.66
         version: 18.3.3
@@ -897,6 +906,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@tanstack/query-core@5.45.0':
+    resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==, tarball: https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.45.0.tgz}
+
+  '@tanstack/react-query@5.45.1':
+    resolution: {integrity: sha512-mYYfJujKg2kxmkRRjA6nn4YKG3ITsKuH22f1kteJ5IuVQqgKUgbaSQfYwVP0gBS05mhwxO03HVpD0t7BMN7WOA==, tarball: https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.45.1.tgz}
+    peerDependencies:
+      react: ^18.0.0
+
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==, tarball: https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz}
 
@@ -914,6 +931,12 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==, tarball: https://registry.npmjs.org/@types/estree/-/estree-1.0.5.tgz}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==, tarball: https://registry.npmjs.org/@types/lodash-es/-/lodash-es-4.17.12.tgz}
+
+  '@types/lodash@4.17.5':
+    resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==, tarball: https://registry.npmjs.org/@types/lodash/-/lodash-4.17.5.tgz}
 
   '@types/node@20.14.4':
     resolution: {integrity: sha512-1ChboN+57suCT2t/f8lwtPY/k3qTpuD/qnqQuYoBg6OQOcPyaw7PiZVdGpaZYAvhDDtqrt0oAaM8+oSu1xsUGw==, tarball: https://registry.npmjs.org/@types/node/-/node-20.14.4.tgz}
@@ -1518,6 +1541,9 @@ packages:
   locate-path@7.2.0:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==, tarball: https://registry.npmjs.org/locate-path/-/locate-path-7.2.0.tgz}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==, tarball: https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz}
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==, tarball: https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz}
@@ -2823,6 +2849,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.18.0':
     optional: true
 
+  '@tanstack/query-core@5.45.0': {}
+
+  '@tanstack/react-query@5.45.1(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.45.0
+      react: 18.3.1
+
   '@types/babel__core@7.20.5':
     dependencies:
       '@babel/parser': 7.24.7
@@ -2849,6 +2882,12 @@ snapshots:
       '@types/node': 20.14.4
 
   '@types/estree@1.0.5': {}
+
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.5
+
+  '@types/lodash@4.17.5': {}
 
   '@types/node@20.14.4':
     dependencies:
@@ -3492,6 +3531,8 @@ snapshots:
   locate-path@7.2.0:
     dependencies:
       p-locate: 6.0.0
+
+  lodash-es@4.17.21: {}
 
   lodash.camelcase@4.3.0: {}
 
