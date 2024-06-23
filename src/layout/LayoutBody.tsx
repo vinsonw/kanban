@@ -3,13 +3,13 @@ import SideBar from "./Sidebar";
 import "./LayoutBody.scss";
 import SidebarToggle from "../components/SidebarToggle/SidebarToggle";
 import { BoardContent } from "../components/BoardContent";
-import { useIsMobile, useMediaQuery } from "../hooks";
-import cssVars from "../scss/vars.module.scss";
+import { useIsMobile } from "../hooks";
+import { useSidebarExpanded } from "./Layout.hooks";
 
 export const SIDEBAR_TRANSITION_TIME = 100;
 
 const LayoutBody = () => {
-  const [sidebarExpanded, setSidebarExpanded] = React.useState(true);
+  const [sidebarExpanded, setSidebarExpanded] = useSidebarExpanded();
   const [sidebarCollapsedByScreenChange, setSidebarCollapsedByScreenChange] =
     React.useState(false);
   const [displayShowSidebar, setDisplayShowSidebar] = React.useState(true);

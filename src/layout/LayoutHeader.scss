@@ -13,6 +13,9 @@
     justify-content: center;
     align-items: center;
     border-right: 1px solid var(--kb-layout-border-color);
+    &.without-sidebar {
+      border-bottom: 1px solid var(--kb-layout-border-color);
+    }
     height: 100%;
     flex-shrink: 0;
 

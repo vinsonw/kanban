@@ -9,6 +9,8 @@ import Dropdown from "../components/Dropdown/Dropdown";
 import AddOrEditBoard from "../components/Task/AddOrEditBoard";
 import DeleteConfirm from "../components/Task/DeleteConfirm";
 import BoardNameWithMenu from "./BoardNameWithMenu";
+import clsx from "clsx";
+import { useSidebarExpanded } from "./Layout.hooks";
 
 type CurrentBoardEditStatus = "view" | "edit" | "delete-confirm";
 
@@ -45,9 +47,15 @@ const LayoutHeader = () => {
       />
     );
 
+  const [sidebarExpanded] = useSidebarExpanded();
+
   return (
     <div className="layout-header">
-      <div className="logo-wrapper">
+      <div
+        className={clsx("logo-wrapper", {
+          "without-sidebar": !sidebarExpanded,
+        })}
+      >
         <Logo />
       </div>
       <div className="board-banner">
