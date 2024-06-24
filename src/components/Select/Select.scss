@@ -25,6 +25,10 @@
     border: 1px solid #635fc7;
   }
 
+  &.error {
+    border: 1px solid var(--kb-color-red);
+  }
+
   .icon {
     transition: transform 0.1s;
     &.rotate {

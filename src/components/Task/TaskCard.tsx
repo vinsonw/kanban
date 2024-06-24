@@ -31,7 +31,13 @@ const TaskCard = (props: Task) => {
         activeOperationOfTask === "view" ? (
           <TaskDetail {...props} onTaskOperation={setActiveOperationOfTask} />
         ) : activeOperationOfTask === "edit" ? (
-          <AddOrEditTask type="edit" task={props} />
+          <AddOrEditTask
+            type="edit"
+            task={props}
+            onSuccess={() => {
+              setOpenTaskDetailDialog(false);
+            }}
+          />
         ) : activeOperationOfTask === "delete" ? (
           <DeleteConfirm
             title="Delete this task?"

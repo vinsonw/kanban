@@ -1,9 +1,11 @@
 import React from "react";
 import "./TaskDetail.scss";
-import { Subtask, Task } from "../../schemas";
+import { Task } from "../../schemas";
 import Select from "../Select/Select";
 import SubtaskList from "./SubtaskList";
 import Dropdown, { type Option } from "../Dropdown/Dropdown";
+import { useMutateTask } from "../../services/mutation";
+import { useQueryDisplayedBoardContent } from "../../services/query";
 
 const ELLIPSIS_OPTIONS: Option<TaskOperation>[] = [
   {
@@ -18,26 +20,13 @@ const ELLIPSIS_OPTIONS: Option<TaskOperation>[] = [
 ];
 
 export type TaskOperation = "edit" | "delete" | "view";
-type TaskEditAction =
-  | {
-      type: "subtasks";
-      payload: Subtask[];
-    }
-  | {
-      type: "status";
-      payload: string;
-    };
 
-const TaskDetail = ({
-  title,
-  description,
-  subtasks,
-  id,
-  status,
-  onTaskOperation,
-}: Task & {
-  onTaskOperation: (operation: TaskOperation) => void;
-}) => {
+const TaskDetail = (
+  props: Task & {
+    onTaskOperation: (operation: TaskOperation) => void;
+  },
+) => {
+  const { title, description, subtasks, status, onTaskOperation } = props;
   const [openDropdown, setOpenDropdown] = React.useState(false);
 
   const handleSelectOperation = (operation: TaskOperation) => {
@@ -45,35 +34,19 @@ const TaskDetail = ({
     onTaskOperation(operation);
   };
 
-  const [localState, dispatch] = React.useReducer(
-    (state: Task, action: TaskEditAction) => {
-      const { type, payload } = action;
-      switch (type) {
-        case "subtasks":
-          return { ...state, subtasks: payload };
-        case "status":
-          return { ...state, status: payload };
-        default:
-          return state;
-      }
-    },
-    {
-      title,
-      description,
-      subtasks,
-      id,
-      status,
-    },
-  );
-
+  const { data: board } = useQueryDisplayedBoardContent();
+  const mutateTask = useMutateTask();
   const handleToggleSubtask = (
     subtaskId: string,
     isCompletedToSet: boolean,
   ) => {
-    const newSubtasks = [...localState.subtasks];
+    const newSubtasks = [...subtasks];
     const foundSubtask = newSubtasks.find(({ id }) => id === subtaskId)!;
     foundSubtask.isCompleted = isCompletedToSet;
-    dispatch({ type: "subtasks", payload: newSubtasks });
+    mutateTask.mutate({
+      boardId: board!.id,
+      task: { ...props, subtasks: newSubtasks },
+    });
   };
 
   return (
@@ -96,22 +69,21 @@ const TaskDetail = ({
         </Dropdown>
       </div>
       <div className="description">{description}</div>
-      <SubtaskList
-        subtaskList={localState.subtasks}
-        toggleSubtask={handleToggleSubtask}
-      />
+      <SubtaskList subtaskList={subtasks} toggleSubtask={handleToggleSubtask} />
       <div className="status-dropdown">
         <p className="status-title">Current Status</p>
         <Select
           onSelect={(id) => {
-            dispatch({ type: "status", payload: id });
+            mutateTask.mutate({
+              boardId: board!.id,
+              task: { ...props, status: id },
+            });
           }}
-          activeOption={{ id: localState.status, label: localState.status }}
-          optionList={[
-            { id: "Todo", label: "Todo" },
-            { id: "Doing", label: "Doing" },
-            { id: "Done", label: "Done" },
-          ]}
+          activeOption={{ id: status, label: status }}
+          optionList={board!.columns.map((col) => ({
+            id: col.name,
+            label: col.name,
+          }))}
         />
       </div>
     </div>

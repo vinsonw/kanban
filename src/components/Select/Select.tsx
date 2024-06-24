@@ -11,10 +11,11 @@ interface Props<T> {
   optionList: Option<T>[];
   activeOption?: Option<T>;
   onSelect: (id: T) => void;
+  error?: boolean;
 }
 
 const Select = <T extends string>(props: Props<T>) => {
-  const { optionList, activeOption, onSelect } = props;
+  const { optionList, activeOption, onSelect, error = false } = props;
 
   const [open, setOpen] = useState(false);
   return (
@@ -24,7 +25,9 @@ const Select = <T extends string>(props: Props<T>) => {
       open={open}
       onOpenChange={(open) => setOpen(open)}
     >
-      <RadixSelect.Trigger className={clsx("kb-select-trigger", { open })}>
+      <RadixSelect.Trigger
+        className={clsx("kb-select-trigger", { open, error })}
+      >
         <RadixSelect.Value placeholder="Click to select" />
         <RadixSelect.Icon className={clsx("icon", { rotate: open })}>
           <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">

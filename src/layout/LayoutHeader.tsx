@@ -84,7 +84,12 @@ const LayoutHeader = () => {
           <Dialog
             open={taskDialogOpen}
             onOpenChange={setTaskDialogOpen}
-            dialogContent={<AddOrEditTask type="add" />}
+            dialogContent={
+              <AddOrEditTask
+                type="add"
+                onSuccess={() => setTaskDialogOpen(false)}
+              />
+            }
           >
             {/* add span wrapper to disable error from radix dialog */}
             <span>

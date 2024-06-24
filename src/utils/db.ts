@@ -14,6 +14,7 @@ export const initDB = () => {
       column.tasks.forEach((task) => {
         // @ts-ignore
         task.id = getRandomId();
+        task.status = column.name;
         task.subtasks.forEach((subtask) => {
           // @ts-ignore
           subtask.id = getRandomId();
@@ -33,7 +34,7 @@ export const getBoardList = () => {
   const parsedRes = z.array(Board).safeParse(db.boards);
   if (parsedRes.success) return parsedRes.data;
 
-  throw new Error("Failed to parse board list");
+  throw parsedRes.error.message;
 };
 
 export const getDb = () => {

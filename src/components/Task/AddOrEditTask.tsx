@@ -1,15 +1,17 @@
 import "./AddOrEditTask.scss";
 import { Task } from "../../schemas";
 import clsx from "clsx";
-import React from "react";
 import Button from "../Button/Button";
 import { getRandomId } from "../../utils";
 import Select from "../Select/Select";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useMutateTask } from "../../services/mutation";
+import { useQueryDisplayedBoardContent } from "../../services/query";
+import { Controller } from "react-hook-form";
 
-type Props =
+type Props = (
   | {
       type: "edit";
       task: Task;
@@ -17,9 +19,10 @@ type Props =
   | {
       type: "add";
       task?: Task;
-    };
-
-type TaskStatus = "Todo" | "Doing" | "Done";
+    }
+) & {
+  onSuccess?: (taskId: string) => void;
+};
 
 const FormValidateSchema = z.object({
   title: z.string().min(1),
@@ -27,6 +30,7 @@ const FormValidateSchema = z.object({
   subtasks: z.array(
     z.object({ id: z.string().min(1), title: z.string().min(1) }),
   ),
+  status: z.string().min(1),
 });
 
 const AddOrEditTask = ({
@@ -38,6 +42,7 @@ const AddOrEditTask = ({
     subtasks: [],
     id: getRandomId(),
   },
+  onSuccess,
 }: Props) => {
   const {
     register,
@@ -48,7 +53,12 @@ const AddOrEditTask = ({
     defaultValues: {
       title: task.title,
       description: task.description,
-      subtasks: task.subtasks.map(({ id, title }) => ({ id, title })),
+      subtasks: task.subtasks.map(({ id, title, isCompleted }) => ({
+        id,
+        title,
+        isCompleted,
+      })),
+      status: task.status || "",
     },
     mode: "all",
     resolver: zodResolver(FormValidateSchema),
@@ -57,19 +67,34 @@ const AddOrEditTask = ({
   const { fields, append, remove } = useFieldArray({
     name: "subtasks",
     control,
-    keyName: "subtasks",
   });
 
+  const mutateTask = useMutateTask();
+  const { data: board } = useQueryDisplayedBoardContent();
   const onSubmit: SubmitHandler<z.infer<typeof FormValidateSchema>> = (
-    data,
+    formData,
   ) => {
-    const formDataToSave = { ...data, status: taskStatus };
-    console.log("formDataToSave", formDataToSave);
+    formData.subtasks = formData.subtasks.map((subtask) => {
+      const oldSubtask = task.subtasks.find(
+        (_subtask) => _subtask.id === subtask.id,
+      );
+      if (oldSubtask) return { ...oldSubtask, ...subtask };
+      return subtask;
+    });
+    debugger;
+    mutateTask.mutate(
+      {
+        boardId: board!.id,
+        task: { ...task, ...formData } as Task,
+      },
+      {
+        onSuccess: (_, vars) => {
+          console.log("vars after mutate task", vars);
+          onSuccess?.(vars.task.id);
+        },
+      },
+    );
   };
-
-  const [taskStatus, setTaskStatus] = React.useState<TaskStatus>(
-    task.status as TaskStatus,
-  );
 
   return (
     <div className="add-or-edit-task">
@@ -146,7 +171,7 @@ recharge the batteries a little."
           <div
             className="add-new-subtask"
             onClick={() => {
-              append({ id: getRandomId(), title: "" });
+              append({ id: getRandomId(), title: "", isCompleted: false });
             }}
           >
             <Button type="secondary" size="small" label="+Add New Subtask" />
@@ -154,17 +179,25 @@ recharge the batteries a little."
         </div>
         {/* status */}
         <div className="status-dropdown">
-          <p className="status-title section-title">Status</p>
-          <Select
-            activeOption={{ id: taskStatus, label: taskStatus }}
-            onSelect={(status) => {
-              setTaskStatus(status as TaskStatus);
-            }}
-            optionList={[
-              { id: "Todo", label: "Todo" },
-              { id: "Doing", label: "Doing" },
-              { id: "Done", label: "Done" },
-            ]}
+          <Controller
+            control={control}
+            name="status"
+            render={({ field: { value, onChange }, fieldState }) => (
+              <>
+                <p className="status-title section-title">Status</p>
+                <Select
+                  error={!!fieldState.error}
+                  activeOption={{ id: value, label: value }}
+                  onSelect={(status) => {
+                    onChange(status);
+                  }}
+                  optionList={board!.columns.map((col) => ({
+                    id: col.name,
+                    label: col.name,
+                  }))}
+                />
+              </>
+            )}
           />
           {/* save */}
           <div className="save-button-wrapper">
