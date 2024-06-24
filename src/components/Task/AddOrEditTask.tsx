@@ -107,108 +107,114 @@ const AddOrEditTask = ({
         {type === "add" ? "Add New Task" : "Edit Task"}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* title */}
-        <div className="title">
-          <div className="section-title">Title</div>
-          <div
-            className={clsx("input-for-task-field-wrapper", {
-              error: errors.title,
-            })}
-          >
-            <input
-              {...register("title")}
-              className={clsx("input-for-task-field", { error: errors.title })}
-              style={{ height: 40 }}
-            />
-            {errors.title && <div className="empty-label">Can't be empty</div>}
-          </div>
-        </div>
-        {/* description */}
-        <div className="description">
-          <div className="section-title">Description</div>
-
-          <textarea
-            {...register("description")}
-            className="textarea-for-task-field"
-            rows={3}
-            placeholder="e.g. It’s always good to take a break. This 15 minute break will 
-recharge the batteries a little."
-          />
-        </div>
-        {/* subtasks */}
-        <div className="subtasks">
-          <div className="section-title">Subtasks</div>
-          {fields.map(({ id }, index) => (
-            <div className="subtask-item" key={id}>
-              <div
-                className={clsx("input-for-task-field-wrapper", {
-                  error: errors.subtasks?.[index]?.title,
+        <fieldset disabled={mutateTask.isPending}>
+          {/* title */}
+          <div className="title">
+            <div className="section-title">Title</div>
+            <div
+              className={clsx("input-for-task-field-wrapper", {
+                error: errors.title,
+              })}
+            >
+              <input
+                {...register("title")}
+                className={clsx("input-for-task-field", {
+                  error: errors.title,
                 })}
-              >
-                <input
-                  {...register(`subtasks.${index}.title`)}
-                  className={clsx("input-for-task-field", {
+                style={{ height: 40 }}
+              />
+              {errors.title && (
+                <div className="empty-label">Can't be empty</div>
+              )}
+            </div>
+          </div>
+          {/* description */}
+          <div className="description">
+            <div className="section-title">Description</div>
+
+            <textarea
+              {...register("description")}
+              className="textarea-for-task-field"
+              rows={3}
+              placeholder="e.g. It’s always good to take a break. This 15 minute break will 
+recharge the batteries a little."
+            />
+          </div>
+          {/* subtasks */}
+          <div className="subtasks">
+            <div className="section-title">Subtasks</div>
+            {fields.map(({ id }, index) => (
+              <div className="subtask-item" key={id}>
+                <div
+                  className={clsx("input-for-task-field-wrapper", {
                     error: errors.subtasks?.[index]?.title,
                   })}
-                  style={{ height: 40 }}
-                />
-                {errors.subtasks?.[index]?.title && (
-                  <div className="empty-label">Can't be empty</div>
-                )}
-              </div>
-              {/* x button */}
-              <svg
-                onClick={() => {
-                  remove(index);
-                }}
-                className="close-button"
-                width="15"
-                height="15"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g fill="currentColor" fillRule="evenodd">
-                  <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
-                  <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
-                </g>
-              </svg>
-            </div>
-          ))}
-          <div
-            className="add-new-subtask"
-            onClick={() => {
-              append({ id: getRandomId(), title: "", isCompleted: false });
-            }}
-          >
-            <Button type="secondary" size="small" label="+Add New Subtask" />
-          </div>
-        </div>
-        {/* status */}
-        <div className="status-dropdown">
-          <Controller
-            control={control}
-            name="status"
-            render={({ field: { value, onChange }, fieldState }) => (
-              <>
-                <p className="status-title section-title">Status</p>
-                <Select
-                  error={!!fieldState.error}
-                  activeOption={{ id: value, label: value }}
-                  onSelect={(status) => {
-                    onChange(status);
+                >
+                  <input
+                    {...register(`subtasks.${index}.title`)}
+                    className={clsx("input-for-task-field", {
+                      error: errors.subtasks?.[index]?.title,
+                    })}
+                    style={{ height: 40 }}
+                  />
+                  {errors.subtasks?.[index]?.title && (
+                    <div className="empty-label">Can't be empty</div>
+                  )}
+                </div>
+                {/* x button */}
+                <svg
+                  onClick={() => {
+                    remove(index);
                   }}
-                  optionList={board!.columns.map((col) => ({
-                    id: col.name,
-                    label: col.name,
-                  }))}
-                />
-              </>
-            )}
-          />
-          {/* save */}
-          <div className="save-button-wrapper">
-            <Button nativeType="submit" label="Save Change" size="small" />
+                  className="close-button"
+                  width="15"
+                  height="15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="currentColor" fillRule="evenodd">
+                    <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+                    <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+                  </g>
+                </svg>
+              </div>
+            ))}
+            <div
+              className="add-new-subtask"
+              onClick={() => {
+                append({ id: getRandomId(), title: "", isCompleted: false });
+              }}
+            >
+              <Button type="secondary" size="small" label="+Add New Subtask" />
+            </div>
           </div>
-        </div>
+          {/* status */}
+          <div className="status-dropdown">
+            <Controller
+              control={control}
+              name="status"
+              render={({ field: { value, onChange }, fieldState }) => (
+                <>
+                  <p className="status-title section-title">Status</p>
+                  <Select
+                    error={!!fieldState.error}
+                    activeOption={{ id: value, label: value }}
+                    onSelect={(status) => {
+                      onChange(status);
+                    }}
+                    optionList={board!.columns.map((col) => ({
+                      id: col.name,
+                      label: col.name,
+                    }))}
+                  />
+                </>
+              )}
+            />
+            {/* save */}
+            <div className="save-button-wrapper">
+              <Button nativeType="submit" label="Save Change" size="small" />
+            </div>
+          </div>
+        </fieldset>
       </form>
     </div>
   );

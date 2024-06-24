@@ -85,74 +85,76 @@ const AddOrEditBoard = ({
         {type === "add" ? "Add New Board" : "Edit Board"}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* name */}
-        <div className="title">
-          <div className="section-title">Name</div>
-          <div
-            className={clsx("input-for-task-field-wrapper", {
-              error: errors.name,
-            })}
-          >
-            <input
-              {...register("name")}
-              className={clsx("input-for-task-field", { error: errors.name })}
-              style={{ height: 40 }}
-            />
-            {errors.name && <div className="empty-label">Can't be empty</div>}
+        <fieldset disabled={mutateBoard.isPending}>
+          {/* name */}
+          <div className="title">
+            <div className="section-title">Name</div>
+            <div
+              className={clsx("input-for-task-field-wrapper", {
+                error: errors.name,
+              })}
+            >
+              <input
+                {...register("name")}
+                className={clsx("input-for-task-field", { error: errors.name })}
+                style={{ height: 40 }}
+              />
+              {errors.name && <div className="empty-label">Can't be empty</div>}
+            </div>
           </div>
-        </div>
 
-        {/* columns */}
-        <div className="subtasks">
-          <div className="section-title">Columns</div>
-          {fields.map(({ id }, index) => (
-            <div className="subtask-item" key={id}>
-              <div
-                className={clsx("input-for-task-field-wrapper", {
-                  error: errors.columns?.[index]?.name,
-                })}
-              >
-                <input
-                  {...register(`columns.${index}.name`)}
-                  className={clsx("input-for-task-field", {
+          {/* columns */}
+          <div className="subtasks">
+            <div className="section-title">Columns</div>
+            {fields.map(({ id }, index) => (
+              <div className="subtask-item" key={id}>
+                <div
+                  className={clsx("input-for-task-field-wrapper", {
                     error: errors.columns?.[index]?.name,
                   })}
-                  style={{ height: 40 }}
-                />
-                {errors.columns?.[index]?.name && (
-                  <div className="empty-label">Can't be empty</div>
-                )}
+                >
+                  <input
+                    {...register(`columns.${index}.name`)}
+                    className={clsx("input-for-task-field", {
+                      error: errors.columns?.[index]?.name,
+                    })}
+                    style={{ height: 40 }}
+                  />
+                  {errors.columns?.[index]?.name && (
+                    <div className="empty-label">Can't be empty</div>
+                  )}
+                </div>
+                {/* x button */}
+                <svg
+                  onClick={() => {
+                    remove(index);
+                  }}
+                  className="close-button"
+                  width="15"
+                  height="15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="currentColor" fillRule="evenodd">
+                    <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+                    <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+                  </g>
+                </svg>
               </div>
-              {/* x button */}
-              <svg
-                onClick={() => {
-                  remove(index);
-                }}
-                className="close-button"
-                width="15"
-                height="15"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g fill="currentColor" fillRule="evenodd">
-                  <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
-                  <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
-                </g>
-              </svg>
+            ))}
+            <div
+              className="add-new-subtask"
+              onClick={() => {
+                append({ id: getRandomId(), name: "" });
+              }}
+            >
+              <Button type="secondary" size="small" label="+Add New Column" />
             </div>
-          ))}
-          <div
-            className="add-new-subtask"
-            onClick={() => {
-              append({ id: getRandomId(), name: "" });
-            }}
-          >
-            <Button type="secondary" size="small" label="+Add New Column" />
           </div>
-        </div>
-        {/* create */}
-        <div className="save-button-wrapper">
-          <Button nativeType="submit" label="Save Change" size="small" />
-        </div>
+          {/* create */}
+          <div className="save-button-wrapper">
+            <Button nativeType="submit" label="Save Change" size="small" />
+          </div>
+        </fieldset>
       </form>
     </div>
   );
