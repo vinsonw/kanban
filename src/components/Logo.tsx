@@ -1,26 +1,27 @@
 import { MouseEvent, useContext } from "react";
 import { ThemeContext } from "../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "../hooks";
-import cssVars from "../scss/vars.module.scss";
+import { useIsMobile } from "../hooks";
 import { ROOT_PATH } from "../constants";
 import { clearDb, initDB } from "../utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Logo = () => {
+  const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const queryClient = useQueryClient();
+
   const handleClick = (e: MouseEvent) => {
+    navigate(ROOT_PATH);
     // ctrl + click to clear localStorage
     if (e.ctrlKey) {
       clearDb();
       initDB();
+      queryClient.invalidateQueries({ queryKey: ["boardList"] });
     }
-    navigate(ROOT_PATH);
-    window.location.reload();
   };
-
-  const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
-  const matchesMobile = useMediaQuery(`(max-width: ${cssVars.sm})`);
-  if (matchesMobile)
+  if (isMobile)
     return (
       <svg
         onClick={handleClick}
