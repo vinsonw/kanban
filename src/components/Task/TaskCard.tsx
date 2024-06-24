@@ -30,6 +30,7 @@ const TaskCard = (props: Task) => {
 
   return (
     <Dialog
+      dialogTitle={activeOperationOfTask + " board"}
       open={openTaskDetailDialog}
       onOpenChange={setOpenTaskDetailDialog}
       dialogContent={

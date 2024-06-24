@@ -18,7 +18,10 @@ export const BoardContent = () => {
       {columns.map((column) => (
         <Column key={column.id} {...column} />
       ))}
-      <Dialog dialogContent={<AddOrEditBoard type="edit" board={board} />}>
+      <Dialog
+        dialogTitle="+New Column"
+        dialogContent={<AddOrEditBoard type="edit" board={board} />}
+      >
         <button className="new-column-button-wrapper">
           <div className="label">+New Column</div>
         </button>

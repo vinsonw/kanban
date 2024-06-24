@@ -15,6 +15,7 @@ export const EmptyBoard = () => {
               This board is empty. Create a new column to get started.
             </p>
             <Dialog
+              dialogTitle="+Add new Column"
               dialogContent={<AddOrEditBoard type="edit" board={board} />}
             >
               <span>

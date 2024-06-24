@@ -37,6 +37,7 @@ const BoardList = ({
       <Dialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
+        dialogTitle="add board"
         dialogContent={
           <AddOrEditBoard
             type="add"

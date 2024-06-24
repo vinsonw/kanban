@@ -82,6 +82,7 @@ const LayoutHeader = () => {
         <BoardNameWithMenu />
         <div className="add-task-button">
           <Dialog
+            dialogTitle="add task"
             open={taskDialogOpen}
             onOpenChange={setTaskDialogOpen}
             dialogContent={
@@ -120,6 +121,7 @@ const LayoutHeader = () => {
 
         <div className="ellipsis-button">
           <Dialog
+            dialogTitle={currentBoardEditStatus + " board"}
             open={boardDialogOpen}
             onOpenChange={setBoardDialogOpen}
             dialogContent={dialogContentForOperationOnBoard}

@@ -27,6 +27,7 @@ const BoardNameWithMenu = () => {
       onClick={() => isMobile && !open && setOpen(true)}
     >
       <Dialog
+        dialogTitle="floating board list"
         open={open}
         onOpenChange={setOpen}
         dialogContent={
