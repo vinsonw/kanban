@@ -12,11 +12,13 @@ import DeleteConfirm from "../components/Task/DeleteConfirm";
 import BoardNameWithMenu from "./BoardNameWithMenu";
 import clsx from "clsx";
 import { useSidebarExpanded } from "./Layout.hooks";
+import { useDeleteBoard } from "../services/mutation";
+import { useNavigate } from "react-router-dom";
 
 type CurrentBoardEditStatus = "view" | "edit" | "delete-confirm";
 
 const LayoutHeader = () => {
-  const { data: displayedBoard, isLoading } = useQueryDisplayedBoardContent();
+  const { data: displayedBoard } = useQueryDisplayedBoardContent();
 
   const shouldDisableAddNewTask = displayedBoard
     ? displayedBoard.columns.length > 0
@@ -32,6 +34,8 @@ const LayoutHeader = () => {
   const isMobile = useIsMobile();
 
   // dialog content when select dropdown options
+  const deleteBoardMutate = useDeleteBoard();
+  const navigate = useNavigate();
   const dialogContentForOperationOnBoard =
     !displayedBoard ? null : currentBoardEditStatus ===
       "view" ? undefined : currentBoardEditStatus === "edit" ? (
@@ -47,7 +51,17 @@ const LayoutHeader = () => {
         title="Delete this board?"
         description="Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed."
         onDelete={() => {
-          console.log("delete  board");
+          deleteBoardMutate.mutate(
+            {
+              boardId: displayedBoard.id,
+            },
+            {
+              onSuccess: () => {
+                setBoardDialogOpen(false);
+                navigate("/");
+              },
+            },
+          );
         }}
         onCancel={() => setBoardDialogOpen(false)}
       />

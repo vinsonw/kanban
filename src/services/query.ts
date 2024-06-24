@@ -32,7 +32,6 @@ export const useQueryBoardList = () => {
   return useQuery({
     queryKey: ["boardList"],
     queryFn: () => {
-      console.log("query again for boardlist");
       return getBoardList();
     },
   });
@@ -43,7 +42,7 @@ export const useQueryDisplayedBoardContent = () => {
   const [searchParams] = useSearchParams();
   const displayedBoardId = searchParams.get("boardId");
   return useQuery({
-    queryKey: ["displayedBoard", displayedBoardId],
+    queryKey: ["board", displayedBoardId],
     queryFn: async () => {
       if (!displayedBoardId) return null;
       return getBoardContentById(displayedBoardId);

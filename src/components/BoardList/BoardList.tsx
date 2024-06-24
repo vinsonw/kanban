@@ -1,5 +1,5 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import BoardItem, { type BoardItemProps } from "./BoardItem";
 import "./BoardList.scss";
 import CreateBoardItemButton from "./CreateNewBoardButton";
@@ -18,6 +18,7 @@ const BoardList = ({
   onSelectBoard,
 }: BorderListProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = React.useState(false);
   return (
     <>
@@ -36,7 +37,15 @@ const BoardList = ({
       <Dialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        dialogContent={<AddOrEditBoard type="add" />}
+        dialogContent={
+          <AddOrEditBoard
+            type="add"
+            onSuccess={({ boardId }) => {
+              setDialogOpen(false);
+              navigate({ search: `boardId=${boardId}` });
+            }}
+          />
+        }
       >
         <CreateBoardItemButton
           onClick={() => {
