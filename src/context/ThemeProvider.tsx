@@ -30,7 +30,9 @@ const ThemeProvider = (props: { children: React.ReactNode }) => {
     "(prefers-color-scheme: dark)",
   );
   React.useEffect(() => {
-    setThemeWithMarkingDocument(isSystemThemeDark ? "dark" : "light");
+    if (!localStorage.getItem(KB_THEME_KEY) && isSystemThemeDark) {
+      setThemeWithMarkingDocument("dark");
+    }
   }, [isSystemThemeDark]);
 
   return (
