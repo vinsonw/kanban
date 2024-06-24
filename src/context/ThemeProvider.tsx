@@ -1,5 +1,6 @@
 import * as React from "react";
 import { KB_THEME_KEY } from "../constants";
+import { useMediaQuery } from "../hooks";
 
 type Theme = "light" | "dark";
 type ThemeContext = {
@@ -23,6 +24,15 @@ const ThemeProvider = (props: { children: React.ReactNode }) => {
     localStorage.setItem(KB_THEME_KEY, theme);
     setTheme(theme);
   };
+
+  // sync system light/dark theme
+  const isSystemThemeDark: boolean = useMediaQuery(
+    "(prefers-color-scheme: dark)",
+  );
+  React.useEffect(() => {
+    setThemeWithMarkingDocument(isSystemThemeDark ? "dark" : "light");
+  }, [isSystemThemeDark]);
+
   return (
     <ThemeContext.Provider
       value={{ theme, setTheme: setThemeWithMarkingDocument }}

@@ -19,7 +19,7 @@ const Redirect = () => {
 const Layout = () => {
   return (
     <Routes>
-      <Route path="/clear" element={<Redirect />} />
+      <Route path={`${ROOT_PATH}/clear`} element={<Redirect />} />
       <Route
         path="*"
         element={
