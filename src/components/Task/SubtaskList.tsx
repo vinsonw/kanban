@@ -14,7 +14,7 @@ const SubtaskList = ({ subtaskList, toggleSubtask }: Props) => {
       {subtaskList.map((subtask) => (
         <div
           className="subtask-item-wrapper"
-          key={subtask.title}
+          key={subtask.id}
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               toggleSubtask(subtask.id, !subtask.isCompleted);

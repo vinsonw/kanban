@@ -112,3 +112,38 @@ export const useMutateTask = () => {
     },
   });
 };
+
+export const deleteTask = async ({
+  boardId,
+  taskId,
+}: {
+  boardId: string;
+  taskId: string;
+}) => {
+  const db = getDb();
+  const belongsToBoard = db.boards.find((_board) => _board.id === boardId);
+  if (belongsToBoard) {
+    belongsToBoard.columns.forEach((column) => {
+      column.tasks.forEach((task, index) => {
+        if (task.id === taskId) {
+          column.tasks.splice(index, 1);
+        }
+      });
+    });
+  }
+  saveDb(db);
+  await delay();
+  return { code: "success" };
+};
+
+export const useDeleteTask = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["task"],
+    mutationFn: deleteTask,
+    onSuccess: (_, vars) => {
+      console.log("invalidate", vars.taskId);
+      queryClient.invalidateQueries({ queryKey: ["board", vars.boardId] });
+    },
+  });
+};

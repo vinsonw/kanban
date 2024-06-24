@@ -4,7 +4,7 @@ import cssVars from "../scss/vars.module.scss";
 export const Subtask = z.object({
   id: z.string(),
   title: z.string(),
-  isCompleted: z.boolean(),
+  isCompleted: z.boolean().default(false),
 });
 export type Subtask = z.infer<typeof Subtask>;
 

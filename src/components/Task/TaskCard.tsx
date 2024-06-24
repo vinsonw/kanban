@@ -5,6 +5,8 @@ import Dialog from "../Dialog/Dialog";
 import TaskDetail, { TaskOperation } from "./TaskDetail";
 import DeleteConfirm from "./DeleteConfirm";
 import "./TaskCard.scss";
+import { useDeleteTask } from "../../services/mutation";
+import { useQueryDisplayedBoardContent } from "../../services/query";
 
 const TaskCard = (props: Task) => {
   const { title, subtasks } = props;
@@ -22,6 +24,9 @@ const TaskCard = (props: Task) => {
       setActiveOperationOfTask("view");
     }
   }, [openTaskDetailDialog]);
+
+  const deleteTask = useDeleteTask();
+  const { data: displayedBoard } = useQueryDisplayedBoardContent();
 
   return (
     <Dialog
@@ -44,7 +49,10 @@ const TaskCard = (props: Task) => {
             description="Are you sure you want to delete the ‘Build settings UI’ task and its
         subtasks? This action cannot be reversed."
             onDelete={() => {
-              console.log("delete");
+              deleteTask.mutate({
+                boardId: displayedBoard!.id,
+                taskId: props.id,
+              });
             }}
             onCancel={() => {
               setOpenTaskDetailDialog(false);

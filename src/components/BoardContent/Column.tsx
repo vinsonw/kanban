@@ -14,7 +14,7 @@ const Column = ({ tasks, name, iconColor }: ColumnType) => {
       </div>
       <div className="task-list-wrapper">
         {tasks.map((task) => (
-          <TaskCard key={task.title} {...task} />
+          <TaskCard key={task.id} {...task} />
         ))}
       </div>
     </div>

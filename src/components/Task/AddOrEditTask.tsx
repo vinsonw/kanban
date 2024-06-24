@@ -24,11 +24,17 @@ type Props = (
   onSuccess?: (taskId: string) => void;
 };
 
+// note: this scheme acts like a filter for undeclared fields,
+// which is the default  behavior of zod
 const FormValidateSchema = z.object({
   title: z.string().min(1),
   description: z.string(),
   subtasks: z.array(
-    z.object({ id: z.string().min(1), title: z.string().min(1) }),
+    z.object({
+      id: z.string().min(1),
+      title: z.string().min(1),
+      isCompleted: z.boolean().default(false),
+    }),
   ),
   status: z.string().min(1),
 });
@@ -81,7 +87,6 @@ const AddOrEditTask = ({
       if (oldSubtask) return { ...oldSubtask, ...subtask };
       return subtask;
     });
-    debugger;
     mutateTask.mutate(
       {
         boardId: board!.id,
