@@ -4,6 +4,7 @@ import { Board } from "../schemas";
 import { z } from "zod";
 
 export const initDB = () => {
+  // prevent reset
   const existingDb = localStorage.getItem(KB_DB);
   if (existingDb) return;
   db.boards.forEach((board) => {
@@ -39,7 +40,7 @@ export const getDb = () => {
   return JSON.parse(localStorage.getItem(KB_DB)!) as { boards: Board[] };
 };
 
-export const getBoardById = (id: string) => {
+export const getRawBoardDataById = (id: string) => {
   const db = getDb();
   return db.boards.find((board: any) => board.id === id);
 };

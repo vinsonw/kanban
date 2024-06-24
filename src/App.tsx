@@ -1,14 +1,17 @@
 import Layout from "./layout/Layout";
 import ThemeProvider from "./context/ThemeProvider";
+import QueryProvider from "./context/QueryProvider";
 import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <ThemeProvider>
-          <Layout />
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <Layout />
+          </ThemeProvider>
+        </QueryProvider>
       </BrowserRouter>
     </>
   );

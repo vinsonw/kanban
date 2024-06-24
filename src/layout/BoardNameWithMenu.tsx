@@ -5,13 +5,14 @@ import { getBoardList } from "../utils";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 import React, { useEffect } from "react";
 import AddOrEditBoard from "../components/Task/AddOrEditBoard";
-import { useDisplayedBoardContent, useIsMobile } from "../hooks";
+import { useIsMobile } from "../hooks";
+import { useQueryDisplayedBoardContent } from "../services/query";
 
 const BoardNameWithMenu = () => {
   const [open, setOpen] = React.useState(false);
   const [openCreateNewBoard, setOpenCreateNewBoard] = React.useState(false);
   const isMobile = useIsMobile();
-  const board = useDisplayedBoardContent();
+  const { data: board } = useQueryDisplayedBoardContent();
   useEffect(() => {
     if (open) {
       setOpenCreateNewBoard(false);

@@ -6,7 +6,7 @@ import { getRandomId } from "../../utils";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { updateBoardContent } from "../../apis";
+import { updateBoardContent, useMutateBoard } from "../../services/mutation";
 
 type Props = (
   | {
@@ -56,7 +56,9 @@ const AddOrEditBoard = ({
     control,
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof FormValidateSchema>> = (
+  const mutateBoard = useMutateBoard({ boardId: board.id });
+
+  const onSubmit: SubmitHandler<z.infer<typeof FormValidateSchema>> = async (
     data,
   ) => {
     //@ts-ignore
@@ -67,10 +69,14 @@ const AddOrEditBoard = ({
       return { ...col, tasks: [], iconColor: "" };
     });
     data.columns = newCompleteColumns;
-    const res = updateBoardContent(data as Board);
-    if (res.code === "success") {
-      onSuccess?.();
-    }
+    mutateBoard.mutate(data as Board, {
+      onSuccess(data, variables, context) {
+        if (data.code === "success") {
+          console.log("add or edit mutate success", data);
+          onSuccess?.();
+        }
+      },
+    });
   };
 
   return (

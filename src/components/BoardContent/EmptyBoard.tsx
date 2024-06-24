@@ -2,10 +2,10 @@ import "./EmptyBoard.scss";
 import Button from "../Button/Button";
 import Dialog from "../Dialog/Dialog";
 import AddOrEditBoard from "../Task/AddOrEditBoard";
-import { useDisplayedBoardContent } from "../../hooks";
+import { useQueryDisplayedBoardContent } from "../../services/query";
 
 export const EmptyBoard = () => {
-  const board = useDisplayedBoardContent();
+  const { data: board } = useQueryDisplayedBoardContent();
   return (
     <div className="empty-board-wrapper">
       <div className="empty-board-content">

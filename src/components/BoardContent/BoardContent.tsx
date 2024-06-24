@@ -1,12 +1,14 @@
-import { useDisplayedBoardContent } from "../../hooks";
+import "./BoardContent.scss";
 import { EmptyBoard } from "./EmptyBoard";
 import Column from "./Column";
-import "./BoardContent.scss";
 import Dialog from "../Dialog/Dialog";
 import AddOrEditBoard from "../Task/AddOrEditBoard";
+import { useQueryDisplayedBoardContent } from "../../services/query";
 
 export const BoardContent = () => {
-  const board = useDisplayedBoardContent();
+  const { data: board, isLoading } = useQueryDisplayedBoardContent();
+
+  if (isLoading) return <h2>loading</h2>;
   if (!board || !board.columns.length) {
     return <EmptyBoard />;
   }

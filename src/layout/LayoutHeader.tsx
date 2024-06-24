@@ -1,7 +1,8 @@
 import "./LayoutHeader.scss";
 import Logo from "../components/Logo";
 import Button from "../components/Button/Button";
-import { useDisplayedBoardContent, useIsMobile } from "../hooks";
+import { useIsMobile } from "../hooks";
+import { useQueryDisplayedBoardContent } from "../services/query";
 import Dialog from "../components/Dialog/Dialog";
 import AddOrEditTask from "../components/Task/AddOrEditTask";
 import React from "react";
@@ -15,7 +16,7 @@ import { useSidebarExpanded } from "./Layout.hooks";
 type CurrentBoardEditStatus = "view" | "edit" | "delete-confirm";
 
 const LayoutHeader = () => {
-  const displayedBoard = useDisplayedBoardContent();
+  const { data: displayedBoard, isLoading } = useQueryDisplayedBoardContent();
 
   const shouldDisableAddNewTask = displayedBoard
     ? displayedBoard.columns.length > 0
