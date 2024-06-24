@@ -44,6 +44,7 @@ const LayoutHeader = () => {
         type="edit"
         board={displayedBoard}
         onSuccess={() => {
+          console.log("board dialog set to close");
           setBoardDialogOpen(false);
         }}
       />
