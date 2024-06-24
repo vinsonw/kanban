@@ -22,12 +22,10 @@ const Dialog = ({
       <RadixDialog.Trigger asChild>{children}</RadixDialog.Trigger>
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="dialog-overlay" />
-        <RadixDialog.Content
-          aria-describedby={dialogTitle}
-          className="dialog-content"
-        >
+        <RadixDialog.Content className="dialog-content">
           <VisuallyHidden.Root>
             <RadixDialog.Title>{dialogTitle}</RadixDialog.Title>
+            <RadixDialog.Description>{dialogTitle}</RadixDialog.Description>
           </VisuallyHidden.Root>
           {dialogContent}
         </RadixDialog.Content>

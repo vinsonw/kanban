@@ -25,9 +25,7 @@ export const EmptyBoard = () => {
           </>
         ) : (
           <>
-            <p className="empty-text">
-              Please select a board in the sidebar to view detail.
-            </p>
+            <p className="empty-text">Select a board to start.</p>
           </>
         )}
       </div>

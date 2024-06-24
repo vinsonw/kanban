@@ -3,6 +3,7 @@ import { ThemeContext } from "../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "../hooks";
 import cssVars from "../scss/vars.module.scss";
+import { ROOT_PATH } from "../constants";
 
 const Logo = () => {
   const { theme } = useContext(ThemeContext);
@@ -11,7 +12,7 @@ const Logo = () => {
   if (matchesMobile)
     return (
       <svg
-        onClick={() => navigate("/")}
+        onClick={() => navigate(ROOT_PATH)}
         width="24"
         height="25"
         xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +26,7 @@ const Logo = () => {
     );
   return theme === "dark" ? (
     <svg
-      onClick={() => navigate("/")}
+      onClick={() => navigate(ROOT_PATH)}
       style={{ cursor: "pointer" }}
       width="153"
       height="26"
@@ -46,7 +47,7 @@ const Logo = () => {
     </svg>
   ) : (
     <svg
-      onClick={() => navigate("/")}
+      onClick={() => navigate(ROOT_PATH)}
       style={{ cursor: "pointer" }}
       width="153"
       height="26"

@@ -19,11 +19,10 @@ const BoardNameWithMenu = () => {
     }
   }, [open]);
 
-  if (!board) return "";
   return (
     <div
       className="board-name-wrapper"
-      title={board.name}
+      title={board?.name}
       onClick={() => isMobile && !open && setOpen(true)}
     >
       <Dialog
@@ -55,7 +54,9 @@ const BoardNameWithMenu = () => {
         }
       >
         <>
-          <span className="name">{board.name}</span>
+          <span className="name">
+            {board?.name ?? (isMobile ? "Select" : "")}
+          </span>
           {isMobile && (
             <div className="icon-wrapper">
               {open ? (

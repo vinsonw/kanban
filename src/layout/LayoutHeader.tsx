@@ -14,6 +14,7 @@ import clsx from "clsx";
 import { useSidebarExpanded } from "./Layout.hooks";
 import { useDeleteBoard } from "../services/mutation";
 import { useNavigate } from "react-router-dom";
+import { ROOT_PATH } from "../constants";
 
 type CurrentBoardEditStatus = "view" | "edit" | "delete-confirm";
 
@@ -58,7 +59,7 @@ const LayoutHeader = () => {
             {
               onSuccess: () => {
                 setBoardDialogOpen(false);
-                navigate("/");
+                navigate(ROOT_PATH);
               },
             },
           );

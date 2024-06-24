@@ -4,13 +4,14 @@ import "./Layout.scss";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { clearDb, initDB } from "../utils";
 import { useEffect } from "react";
+import { ROOT_PATH } from "../constants";
 
 const Redirect = () => {
   const navigate = useNavigate();
   useEffect(() => {
     clearDb();
     initDB();
-    navigate("/");
+    navigate(ROOT_PATH);
   }, []);
   return null;
 };
