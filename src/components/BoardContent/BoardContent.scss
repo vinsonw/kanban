@@ -21,3 +21,9 @@
     background: linear-gradient(180deg, #2b2c37 0%, #2b2c377f 100%);
   }
 }
+
+.loading-text {
+  @include dark {
+    color: var(--kb-color-white);
+  }
+}

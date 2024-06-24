@@ -25,6 +25,10 @@ export const initDB = () => {
   localStorage.setItem(KB_DB, JSON.stringify(db));
 };
 
+export const clearDb = () => {
+  localStorage.removeItem(KB_DB);
+};
+
 export const saveDb = (db: any) => {
   localStorage.setItem(KB_DB, JSON.stringify(db));
 };

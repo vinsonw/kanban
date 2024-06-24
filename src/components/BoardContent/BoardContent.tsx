@@ -8,7 +8,7 @@ import { useQueryDisplayedBoardContent } from "../../services/query";
 export const BoardContent = () => {
   const { data: board, isLoading } = useQueryDisplayedBoardContent();
 
-  if (isLoading) return <h2>loading</h2>;
+  if (isLoading) return <h2 className="loading-text">loading</h2>;
   if (!board || !board.columns.length) {
     return <EmptyBoard />;
   }

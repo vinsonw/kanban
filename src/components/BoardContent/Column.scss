@@ -1,3 +1,5 @@
+@use "../../scss/vars.module.scss" as vars;
+
 .board-column-wrapper {
   width: 280px;
   min-width: 200px;
@@ -10,7 +12,7 @@
       height: 15px;
       border-radius: 50%;
       //debug
-      background-color: var(--column-icon-color, blue);
+      background-color: var(--column-icon-color, vars.$main-purple);
     }
     .text {
       margin-left: 0.6em;
