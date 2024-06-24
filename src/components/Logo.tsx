@@ -1,18 +1,29 @@
-import { useContext } from "react";
+import { MouseEvent, useContext } from "react";
 import { ThemeContext } from "../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "../hooks";
 import cssVars from "../scss/vars.module.scss";
 import { ROOT_PATH } from "../constants";
+import { clearDb, initDB } from "../utils";
 
 const Logo = () => {
+  const handleClick = (e: MouseEvent) => {
+    // ctrl + click to clear localStorage
+    if (e.ctrlKey) {
+      clearDb();
+      initDB();
+    }
+    navigate(ROOT_PATH);
+    window.location.reload();
+  };
+
   const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const matchesMobile = useMediaQuery(`(max-width: ${cssVars.sm})`);
   if (matchesMobile)
     return (
       <svg
-        onClick={() => navigate(ROOT_PATH)}
+        onClick={handleClick}
         width="24"
         height="25"
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +37,7 @@ const Logo = () => {
     );
   return theme === "dark" ? (
     <svg
-      onClick={() => navigate(ROOT_PATH)}
+      onClick={handleClick}
       style={{ cursor: "pointer" }}
       width="153"
       height="26"
@@ -47,7 +58,7 @@ const Logo = () => {
     </svg>
   ) : (
     <svg
-      onClick={() => navigate(ROOT_PATH)}
+      onClick={handleClick}
       style={{ cursor: "pointer" }}
       width="153"
       height="26"

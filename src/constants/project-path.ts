@@ -1,1 +1,1 @@
-export const ROOT_PATH = "/kanban";
+export const ROOT_PATH = "/kanban/";
