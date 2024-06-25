@@ -1,36 +1,39 @@
 import "./BoardNameWithMenu.scss";
+import React from "react";
 import Dialog from "../components/Dialog/Dialog";
 import BoardList from "../components/BoardList/BoardList";
-import { getBoardList } from "../utils";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
-import React, { useEffect } from "react";
 import AddOrEditBoard from "../components/Task/AddOrEditBoard";
+import CreateBoardItemButton from "../components/BoardList/CreateNewBoardButton";
 import { useIsMobile } from "../hooks";
 import { useQueryDisplayedBoardContent } from "../services/query";
+import { getBoardList } from "../utils";
 
 const BoardNameWithMenu = () => {
-  const [open, setOpen] = React.useState(false);
-  const [openCreateNewBoard, setOpenCreateNewBoard] = React.useState(false);
+  const [dialogStatus, setDialogStatus] = React.useState<
+    "closed" | "show-board-list" | "show-create-new-board"
+  >("closed");
+  const isDialogOpen = React.useMemo(
+    () => dialogStatus !== "closed",
+    [dialogStatus],
+  );
   const isMobile = useIsMobile();
   const { data: board } = useQueryDisplayedBoardContent();
-  useEffect(() => {
-    if (open) {
-      setOpenCreateNewBoard(false);
-    }
-  }, [open]);
 
   return (
     <div
       className="board-name-wrapper"
       title={board?.name}
-      onClick={() => isMobile && !open && setOpen(true)}
+      onClick={() =>
+        isMobile && !isDialogOpen && setDialogStatus("show-board-list")
+      }
     >
       <Dialog
         dialogTitle="floating board list"
-        open={open}
-        onOpenChange={setOpen}
+        open={dialogStatus !== "closed"}
+        onOpenChange={() => setDialogStatus("closed")}
         dialogContent={
-          !openCreateNewBoard ? (
+          dialogStatus === "show-board-list" ? (
             <div className="menu-wrapper">
               <div className="mobile-board-list">
                 <BoardList
@@ -38,10 +41,10 @@ const BoardNameWithMenu = () => {
                     id: board.id,
                     boardName: board.name,
                   }))}
-                  onSelectBoard={() => setOpen(false)}
-                  onCreateNewBoard={() => {
-                    setOpenCreateNewBoard(true);
-                  }}
+                  onSelectBoard={() => setDialogStatus("closed")}
+                />
+                <CreateBoardItemButton
+                  onClick={() => setDialogStatus("show-create-new-board")}
                 />
               </div>
               <div className="theme-toggle-wrapper">
@@ -49,7 +52,12 @@ const BoardNameWithMenu = () => {
               </div>
             </div>
           ) : (
-            <AddOrEditBoard type="add" />
+            <AddOrEditBoard
+              type="add"
+              onSuccess={() => {
+                setDialogStatus("closed");
+              }}
+            />
           )
         }
       >
@@ -59,7 +67,7 @@ const BoardNameWithMenu = () => {
           </span>
           {isMobile && (
             <div className="icon-wrapper">
-              {open ? (
+              {isDialogOpen ? (
                 <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
                   <path
                     stroke="#635FC7"

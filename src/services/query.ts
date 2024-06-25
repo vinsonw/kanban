@@ -31,9 +31,7 @@ export const getBoardContentById = async (
 export const useQueryBoardList = () => {
   return useQuery({
     queryKey: ["boardList"],
-    queryFn: () => {
-      return getBoardList();
-    },
+    queryFn: getBoardList,
   });
 };
 
